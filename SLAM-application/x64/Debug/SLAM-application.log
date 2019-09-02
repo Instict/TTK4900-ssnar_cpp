@@ -1,0 +1,34 @@
+﻿  main.cpp
+  class any is only available with C++17 or later.
+  class template optional is only available with C++17 or later.
+c:\temp\ssnar_cpp\slam-application\include\panel_base.h(7): error C2429: language feature 'nested-namespace-definition' requires compiler flag '/std:c++17'
+c:\temp\ssnar_cpp\slam-application\include\panel_base.h(10): error C2039: 'optional': is not a member of 'std'
+  c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.16.27023\include\functional(23): note: see declaration of 'std'
+c:\temp\ssnar_cpp\slam-application\include\panel_base.h(10): error C2061: syntax error: identifier 'optional'
+c:\temp\ssnar_cpp\slam-application\include\panel_base.h(16): error C2061: syntax error: identifier 'ofpair'
+c:\temp\ssnar_cpp\slam-application\include\panel_base.h(22): error C3646: 'getSize': unknown override specifier
+c:\temp\ssnar_cpp\slam-application\include\panel_base.h(22): error C2059: syntax error: '('
+c:\temp\ssnar_cpp\slam-application\include\panel_base.h(22): error C2238: unexpected token(s) preceding ';'
+c:\temp\ssnar_cpp\slam-application\include\panel_base.h(25): error C3646: 'getPos': unknown override specifier
+c:\temp\ssnar_cpp\slam-application\include\panel_base.h(25): error C2059: syntax error: '('
+c:\temp\ssnar_cpp\slam-application\include\panel_base.h(25): error C2238: unexpected token(s) preceding ';'
+c:\temp\ssnar_cpp\slam-application\include\panel_base.h(28): error C3646: 'size_': unknown override specifier
+c:\temp\ssnar_cpp\slam-application\include\panel_base.h(28): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\temp\ssnar_cpp\slam-application\include\panel_base.h(29): error C3646: 'pos_': unknown override specifier
+c:\temp\ssnar_cpp\slam-application\include\panel_base.h(29): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\temp\ssnar_cpp\slam-application\include\panel.h(9): error C2429: language feature 'nested-namespace-definition' requires compiler flag '/std:c++17'
+c:\temp\ssnar_cpp\slam-application\include\panel.h(18): error C2039: 'optional': is not a member of 'std'
+  c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.16.27023\include\functional(23): note: see declaration of 'std'
+c:\temp\ssnar_cpp\slam-application\include\panel.h(18): error C2061: syntax error: identifier 'optional'
+c:\temp\ssnar_cpp\slam-application\include\panel.h(27): error C2039: 'optional': is not a member of 'std'
+  c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.16.27023\include\functional(23): note: see declaration of 'std'
+c:\temp\ssnar_cpp\slam-application\include\panel.h(27): error C2143: syntax error: missing ';' before '<'
+c:\temp\ssnar_cpp\slam-application\include\panel.h(27): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\temp\ssnar_cpp\slam-application\include\panel.h(27): error C2238: unexpected token(s) preceding ';'
+c:\temp\ssnar_cpp\slam-application\include\lines.h(8): error C2429: language feature 'nested-namespace-definition' requires compiler flag '/std:c++17'
+c:\temp\ssnar_cpp\slam-application\include\callbacks.h(8): error C2429: language feature 'nested-namespace-definition' requires compiler flag '/std:c++17'
+c:\temp\ssnar_cpp\slam-application\include\callbacks.h(18): error C2429: language feature 'init-statements in if/switch' requires compiler flag '/std:c++17'
+  c:\temp\ssnar_cpp\slam-application\include\callbacks.h(27): note: see reference to class template instantiation 'TG::utility::callbacks<Key,FunParam>' being compiled
+c:\temp\ssnar_cpp\slam-application\include\updatable.h(6): error C2429: language feature 'nested-namespace-definition' requires compiler flag '/std:c++17'
+c:\temp\ssnar_cpp\slam-application\include\window.h(14): error C2429: language feature 'nested-namespace-definition' requires compiler flag '/std:c++17'
+c:\temp\ssnar_cpp\slam-application\include\mqtt.h(5): fatal error C1083: Cannot open include file: 'MQTTAsync.h': No such file or directory
