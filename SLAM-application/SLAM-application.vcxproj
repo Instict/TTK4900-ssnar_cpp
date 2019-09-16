@@ -29,7 +29,6 @@
     <ClInclude Include="Include\grid_common.h" />
     <ClInclude Include="Include\grid_path_solver.h" />
     <ClInclude Include="Include\grid_util.h" />
-    <ClInclude Include="Include\gui_base.h" />
     <ClInclude Include="Include\imconfig-SFML.h" />
     <ClInclude Include="Include\imgui-SFML.h" />
     <ClInclude Include="Include\lines.h" />
@@ -51,10 +50,7 @@
     <ClInclude Include="Include\window.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(PIXELINK_SDK_ROOT)\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(PIXELINK_SDK_ROOT)\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Src\animated_line.cpp" />
     <ClCompile Include="Src\circles.cpp" />
     <ClCompile Include="Src\circle_grid.cpp" />
@@ -63,7 +59,6 @@
     <ClCompile Include="Src\grid.cpp" />
     <ClCompile Include="Src\grid_path_solver.cpp" />
     <ClCompile Include="Src\grid_util.cpp" />
-    <ClCompile Include="Src\gui_base.cpp" />
     <ClCompile Include="Src\imgui-SFML.cpp" />
     <ClCompile Include="Src\lines.cpp" />
     <ClCompile Include="Src\MQTT.cpp" />
@@ -85,7 +80,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{687B3B5A-2018-4A0B-9C97-B76245C5781A}</ProjectGuid>
     <RootNamespace>SLAMapplication</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -141,7 +136,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PreprocessorDefinitions>WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>./Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\temp\vcpkg\installed\x86-windows\include\paho-mqtt;./Include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>OpenGL32.lib;bcrypt.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -153,7 +148,6 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\temp\ssnar_cpp\SLAM-application\Include;C:\temp\vcpkg\packages\paho-mqtt_x64-windows\include\paho-mqtt</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -165,7 +159,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>./Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\temp\vcpkg\installed\x86-windows\include\paho-mqtt;./Include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -183,7 +177,6 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\temp\ssnar_cpp\SLAM-application\Include;C:\temp\vcpkg\packages\paho-mqtt_x64-windows\include\paho-mqtt</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
