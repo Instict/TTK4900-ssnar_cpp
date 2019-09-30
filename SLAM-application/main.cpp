@@ -41,7 +41,16 @@ using std::chrono::seconds;
 
 // CONFIG
 //const std::string MQTT_ADDRESS{"tcp://localhost:1883"};
+//	Config when the BoarderRouter is connected to the internet
 const std::string MQTT_ADDRESS{ "tcp://188.166.100.22:1883" };
+
+//	OpenThread MQTT-SN Gateway
+//	IPv4 198.41.30.241
+//	Port 1883
+//const std::string MQTT_ADDRESS{ " tcp://198.41.30.241:1883" };
+
+//const std::string MQTT_ADDRESS{ "tcp://10.42.0.1:1883" };
+
 
 int main()
 {
