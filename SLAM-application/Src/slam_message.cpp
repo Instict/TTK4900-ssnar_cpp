@@ -88,6 +88,7 @@ std::vector<std::byte> message::serialize() const
 	for (const auto& obs : obstacles_) {
 		serialize_int16(obs.x);
 		serialize_int16(obs.y);
+
 	}
 
 	return raw;

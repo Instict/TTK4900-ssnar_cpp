@@ -153,6 +153,7 @@ void robot::add_obstacle(const sf::Vector2f& pos)
 	setRotation(vec.phi);
 
 	// Add an animated line to point at the added obstacle.
+
 	animated_line line(getPosition(), pos, color_, sf::milliseconds(350));
 	animated_lines_.push_back(line);
 }
