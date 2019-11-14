@@ -44,9 +44,6 @@ using std::chrono::seconds;
 //	Config when the BoarderRouter is connected to the internet
 const std::string MQTT_ADDRESS{ "tcp://188.166.100.22:1883" };
 
-//	OpenThread MQTT-SN Gateway
-//	IPv4 198.41.30.241
-//	Port 1883
 //const std::string MQTT_ADDRESS{ " tcp://198.41.30.241:1883" };
 
 //const std::string MQTT_ADDRESS{ "tcp://10.42.0.1:1883" };
@@ -172,6 +169,18 @@ int main()
 
 		ImGui::Text("Current target is: X [%d], Y [%d]", manual_target.first, manual_target.second);
 	});
+	
+///////////////////////////////////////// 
+	//	TEST	//
+///////////////////////////////////////// 
+	TG::gui::panel::panel example_panel;
+	example_panel.set_fun([&] {					
+		static int slider_value = 0;
+		ImGui::SliderInt("Some Value", &slider_value, -100, 100);
+		if (ImGui::Button("Click me!"))
+			std::cout << "I was clicked! Slider has value: " << slider_value << "\n";
+		});
+	ctrl_panel.embed_panel(&example_panel, "Example");
 
 	ctrl_panel.embed_panel(&main_panel, "Main");
 	ctrl_panel.embed_panel(&mqtt_panel, "MQTT");
@@ -375,7 +384,7 @@ int main()
 			auto msg = std::any_cast<TG::application::SLAM::message>(context);
 			if (mqtt_to_publish_ch.try_push(msg) !=
 				boost::fibers::channel_op_status::success)
-				std::cerr << "Could not put onto sub ch!\n";
+				std::cerr << "Could not put onto pub ch!\n";
 		}
 		catch (const std::bad_any_cast& e) { std::cout << e.what(); }
 	});
@@ -442,12 +451,43 @@ int main()
 			try
 			{
 				auto[topic, msg] = std::any_cast<mqtt_msg>(any);
-				//std::cout << "Message arrived: " << topic << " | " << msg << '\n';
 				mqtt_panel.add_msg_in(topic, msg);
-
 				TG::application::SLAM::message slam_msg(topic);
 				slam_msg.set_payload(msg);
+				
+				//std::cout << "Message arrived: " << topic << " | " << msg << '\n';	
+				// FOR TESTING PURPOSE //
+				/*
+				std::cout << ".enable_callback: ";
+				for (int i = 0; i < msg.length(); i++) {
+					std::cout << msg[i];
+				}
+				std::cout << std::endl;
+				*/
+				std::vector<std::byte> raw;
 
+				for (const auto& ch : msg) {
+					auto byte = std::byte(ch);
+					raw.push_back(byte);
+				}
+				auto iterator = raw.begin();
+
+				std::cout << "pX: " << TG::application::SLAM::utility::from_byte_ptr(&(*iterator));
+				iterator += 2;
+				std::cout << " pY: " <<TG::application::SLAM::utility::from_byte_ptr(&(*iterator));
+				iterator += 2;
+
+				for (iterator; iterator < raw.end();)
+				{
+					std::cout << "oX: " << TG::application::SLAM::utility::from_byte_ptr(&(*iterator));
+					iterator += 2;
+					std::cout << " oY: " << TG::application::SLAM::utility::from_byte_ptr(&(*iterator));
+					iterator += 2;
+					std::cout << std::endl;
+				}
+				// FOR TESTING PURPOSE //
+				
+				
 				if (slam_ch.try_push(slam_msg) !=
 					boost::fibers::channel_op_status::success)
 					std::cerr << "Could not put onto slam ch!\n";
@@ -576,7 +616,7 @@ int main()
 					auto[nx, ny] = next_point.value();
 					TG::application::SLAM::message::position pos{ nx, ny };
 					msg.set_payload(pos);
-
+				//	std::cout << "Next point, X: " << pos.x << " Y: " << pos.y << std::endl;		//testing purpose
 					auto result = mqtt_to_publish_ch.push(msg);
 					if (result != boost::fibers::channel_op_status::success) {
 						std::cerr << "Robot push msg onto publish queue did not succeed!\n";

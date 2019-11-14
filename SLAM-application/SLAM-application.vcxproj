@@ -48,9 +48,11 @@
     <ClInclude Include="Include\updatable.h" />
     <ClInclude Include="Include\vertex_hash.h" />
     <ClInclude Include="Include\window.h" />
+    <ClInclude Include="panel_navigate.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="panel_navigate.cpp" />
     <ClCompile Include="Src\animated_line.cpp" />
     <ClCompile Include="Src\circles.cpp" />
     <ClCompile Include="Src\circle_grid.cpp" />

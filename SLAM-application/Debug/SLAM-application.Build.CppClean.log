@@ -25,8 +25,9 @@ c:\temp\ssnar_cpp\slam-application\debug\slam_utility.obj
 c:\temp\ssnar_cpp\slam-application\debug\slam_message.obj
 c:\temp\ssnar_cpp\slam-application\debug\slam_grid.obj
 c:\temp\ssnar_cpp\slam-application\debug\robot_simulation.obj
-c:\temp\ssnar_cpp\debug\slam-application.ilk
+c:\temp\ssnar_cpp\slam-application\debug\panel_navigate.obj
 c:\temp\ssnar_cpp\debug\slam-application.exe
+c:\temp\ssnar_cpp\debug\slam-application.ilk
 c:\temp\ssnar_cpp\debug\slam-application.pdb
 c:\temp\ssnar_cpp\slam-application\debug\vcpkg.applocal.log
 c:\temp\ssnar_cpp\debug\boost_context-vc142-mt-gd-x32-1_70.dll
