@@ -48,11 +48,12 @@
     <ClInclude Include="Include\updatable.h" />
     <ClInclude Include="Include\vertex_hash.h" />
     <ClInclude Include="Include\window.h" />
-    <ClInclude Include="panel_navigate.h" />
+    <ClInclude Include="main_panel.h" />
+    <ClInclude Include="target_panel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="panel_navigate.cpp" />
+    <ClCompile Include="main_panel.cpp" />
     <ClCompile Include="Src\animated_line.cpp" />
     <ClCompile Include="Src\circles.cpp" />
     <ClCompile Include="Src\circle_grid.cpp" />
@@ -77,6 +78,7 @@
     <ClCompile Include="Src\slam_message.cpp" />
     <ClCompile Include="Src\slam_utility.cpp" />
     <ClCompile Include="Src\window.cpp" />
+    <ClCompile Include="target_panel.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

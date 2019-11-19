@@ -14,6 +14,7 @@
 #include "robots.h"
 #include "robot_simulation.h"
 #include "control_panel.h"
+#include "target_panel.h"
 
 // C++ standard lib
 #include <vector>		// std::vector
@@ -70,6 +71,7 @@ int main()
 	// Panels
 	TG::gui::panel::mqtt_panel mqtt_panel;
 	TG::gui::panel::clicks clicks;
+	TG::gui::panel::target_panel target_panel;
 
 	////////////////////////////////////////////////////////////////////////////////
 	// GUI: Create window, add children
@@ -118,7 +120,8 @@ int main()
 			win.setRotation(thor::toDegree(rotation));
 		}
 	});
-
+	// TESTING
+	/*
 	TG::gui::panel::panel target_panel;
 	bool manual_robot_drive = false;
 	ipair manual_target{ 0, 0 };
@@ -169,7 +172,7 @@ int main()
 
 		ImGui::Text("Current target is: X [%d], Y [%d]", manual_target.first, manual_target.second);
 	});
-	
+	*/
 ///////////////////////////////////////// 
 	//	TEST	//
 ///////////////////////////////////////// 
@@ -455,6 +458,7 @@ int main()
 				TG::application::SLAM::message slam_msg(topic);
 				slam_msg.set_payload(msg);
 				
+
 				//std::cout << "Message arrived: " << topic << " | " << msg << '\n';	
 				// FOR TESTING PURPOSE //
 				/*
@@ -463,7 +467,7 @@ int main()
 					std::cout << msg[i];
 				}
 				std::cout << std::endl;
-				*/
+				
 				std::vector<std::byte> raw;
 
 				for (const auto& ch : msg) {
@@ -485,6 +489,7 @@ int main()
 					iterator += 2;
 					std::cout << std::endl;
 				}
+				*/
 				// FOR TESTING PURPOSE //
 				
 				
@@ -588,7 +593,8 @@ int main()
 			yield();
 		}
 	});
-
+	// TESTING
+	
 	fiber robots_outbox_f([&] {
 		for (;;)
 		{
@@ -596,9 +602,12 @@ int main()
 			for (const auto& robot : all_robots)
 			{
 				std::optional<ipair> next_point = std::nullopt;
-				if (manual_robot_drive)
+				TG::gui::panel::target_panel manual_target;
+				TG::gui::panel::target_panel manual_robot_drive;
+				
+				if (manual_robot_drive.get_manual_robot_drive())
 				{
-					next_point = manual_target;
+					next_point = manual_target.get_manual_target();
 				}
 				else
 					next_point = robots.get_next_point(robot);
@@ -636,7 +645,7 @@ int main()
 			sleep_until(next_time);
 		}
 	});
-
+	
 	fiber robot_simulation_f([&] {
 		TG::application::SLAM::robot_simulation_config config = { MQTT_ADDRESS, "v1/robot/simulated/adv", 3, 25 };
 		TG::application::SLAM::robot_simulation robot_sim{ config };
@@ -656,7 +665,7 @@ int main()
 	gui_f.join();
 	mqtt_f.join();
 	robots_inbox_f.join();
-	robots_outbox_f.join();
+	robots_outbox_f.join();	//	TESTING
 	robot_simulation_f.join();
 
 	return 0;
