@@ -12,9 +12,12 @@
 #include "path.h"
 #include "grid_path_solver.h"
 #include "robots.h"
+
+//	Panels
 #include "robot_simulation.h"
 #include "control_panel.h"
 #include "target_panel.h"
+#include "simulation_panel.h"
 
 // C++ standard lib
 #include <vector>		// std::vector
@@ -72,6 +75,7 @@ int main()
 	TG::gui::panel::mqtt_panel mqtt_panel;
 	TG::gui::panel::clicks clicks;
 	TG::gui::panel::target_panel target_panel;
+	TG::gui::panel::simulation_panel simulation_panel;
 
 	////////////////////////////////////////////////////////////////////////////////
 	// GUI: Create window, add children
@@ -96,13 +100,14 @@ int main()
 
 	// Panels
 	TG::gui::panel::control_panel ctrl_panel;
-
+	//	TESTING!!
+	/*
 	TG::gui::panel::panel robot_sim;
 	bool robot_sim_enable = false;
 	robot_sim.set_fun([&robot_sim_enable]() {
 		ImGui::Checkbox("Simulation On", &robot_sim_enable);
 	});
-
+	*/
 
 	TG::gui::panel::panel main_panel;
 	bool yaxis_flip = true;
@@ -191,7 +196,7 @@ int main()
 	ctrl_panel.embed_panel(&robots, "Robots");
 	ctrl_panel.embed_panel(&target_panel, "Manual Drive");
 	ctrl_panel.embed_panel(&grid, "Grid");
-	ctrl_panel.embed_panel(&robot_sim, "Robot Simulation");
+	ctrl_panel.embed_panel(&simulation_panel, "Robot Simulation");
 
 	win.add_panel(&ctrl_panel);
 
@@ -645,16 +650,20 @@ int main()
 			sleep_until(next_time);
 		}
 	});
-	
+
+	/*
+	Robot Simulation
+	*/
 	fiber robot_simulation_f([&] {
 		TG::application::SLAM::robot_simulation_config config = { MQTT_ADDRESS, "v1/robot/simulated/adv", 3, 25 };
 		TG::application::SLAM::robot_simulation robot_sim{ config };
-
+		TG::gui::panel::simulation_panel robot_sim_enable;		//	TESTING
 		// Grace time (for e.g. MQTT connection)
 		sleep_until(system_clock::now() + seconds(3));
+		std::cout << "robot_sim_enable: " << robot_sim_enable.get_robot_sim_enable() << std::endl;	//	TESTING
 		for (;;)
 		{
-			if (robot_sim_enable)
+			if (robot_sim_enable.get_robot_sim_enable())	//	TESTING
 				robot_sim.run();
 
 			auto next_time = system_clock::now() + milliseconds(10);

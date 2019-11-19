@@ -49,11 +49,13 @@
     <ClInclude Include="Include\vertex_hash.h" />
     <ClInclude Include="Include\window.h" />
     <ClInclude Include="main_panel.h" />
+    <ClInclude Include="simulation_panel.h" />
     <ClInclude Include="target_panel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="main_panel.cpp" />
+    <ClCompile Include="simulation_panel.cpp" />
     <ClCompile Include="Src\animated_line.cpp" />
     <ClCompile Include="Src\circles.cpp" />
     <ClCompile Include="Src\circle_grid.cpp" />
