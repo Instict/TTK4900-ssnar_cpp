@@ -5,7 +5,7 @@
 #include <boost/uuid/uuid_io.hpp>
 #include <sstream>
 
-namespace TG::networking::protocols::MQTT {
+namespace NTNU::networking::protocols::MQTT {
 
 static void connection_lost(void* context, char* cause) {
 	std::cout << "Connection lost\n";

@@ -2,7 +2,7 @@
 #include <iostream>
 
 
-namespace TG::gui::collections
+namespace NTNU::gui::collections
 {
 
 circles::circles() :

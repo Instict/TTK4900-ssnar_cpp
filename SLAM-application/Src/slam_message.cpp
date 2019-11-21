@@ -2,7 +2,7 @@
 #include "slam_utility.h"
 #include <iostream>
 
-namespace TG::application::SLAM
+namespace NTNU::application::SLAM
 {
 
 using position = message::position;

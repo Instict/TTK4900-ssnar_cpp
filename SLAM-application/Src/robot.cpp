@@ -9,7 +9,7 @@
 #include <Thor/Animations.hpp>
 #include <Thor/Vectors.hpp>
 
-namespace TG::application::SLAM
+namespace NTNU::application::SLAM
 {
 
 robot::robot(const std::string& name) :

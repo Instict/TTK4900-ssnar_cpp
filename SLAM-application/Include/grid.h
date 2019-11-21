@@ -2,7 +2,7 @@
 
 #include "grid_common.h"
 
-namespace TG::graph::base
+namespace NTNU::graph::base
 {
 
 class grid
@@ -18,7 +18,7 @@ public:
 	int columns() const;
 
 protected:
-	std::unique_ptr<TG::graph::grid::bgrid> grid_;
+	std::unique_ptr<NTNU::graph::grid::bgrid> grid_;
 };
 
 }

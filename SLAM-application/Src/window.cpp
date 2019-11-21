@@ -6,7 +6,7 @@
 #include <imgui.h>
 #include "imgui-SFML.h"
 
-namespace TG::gui::base
+namespace NTNU::gui::base
 {
 
 window::window() :
@@ -23,7 +23,7 @@ window::window() :
 	move(sf::Vector2f(mode.width / 2.f, mode.height / 2.f));
 }
 
-void window::add_panel(const TG::gui::panel::panel* panel)
+void window::add_panel(const NTNU::gui::panel::panel* panel)
 {
 	panels_.push_back(panel);
 }
@@ -33,7 +33,7 @@ void window::add_drawable(const sf::Drawable* element)
 	elements_.push_back(element);
 }
 
-void window::add_updatable(TG::gui::base::updatable * thing)
+void window::add_updatable(NTNU::gui::base::updatable * thing)
 {
 	updatables_.push_back(thing);
 }

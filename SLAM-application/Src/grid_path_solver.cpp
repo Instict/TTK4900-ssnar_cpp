@@ -5,11 +5,11 @@
 #include <boost/unordered_map.hpp>
 #include <algorithm>
 
-using vertex_hash = TG::graph::grid::vertex_hash;
+using vertex_hash = NTNU::graph::grid::vertex_hash;
 using grid = boost::grid_graph<2>;
 using vertex_descriptor = boost::graph_traits<grid>::vertex_descriptor;
 
-namespace TG::graph::pathfinding
+namespace NTNU::graph::pathfinding
 {
 
 // Helper class; determines the heuristic for what constitues a "good" path

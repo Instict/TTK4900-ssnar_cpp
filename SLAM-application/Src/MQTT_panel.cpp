@@ -8,7 +8,7 @@
 #include <ios>			// std::hex
 #include <iomanip>		// std::setw
 
-namespace TG::gui::panel
+namespace NTNU::gui::panel
 {
 
 mqtt_panel::mqtt_panel(const std::string& id) :
@@ -69,17 +69,17 @@ mqtt_panel::mqtt_panel(const std::string& id) :
 
 					if (topic.size() > 0) {
 						std::cout << "Topic: " << topic << '\n';
-						TG::application::SLAM::message msg(topic);
+						NTNU::application::SLAM::message msg(topic);
 
 						if (include_obstruction)
 						{
-							TG::application::SLAM::message::position robot_pos{ pos[0], pos[1] };
-							TG::application::SLAM::message::position robot_obs{ obs[0], obs[1] };
+							NTNU::application::SLAM::message::position robot_pos{ pos[0], pos[1] };
+							NTNU::application::SLAM::message::position robot_obs{ obs[0], obs[1] };
 							msg.set_payload(robot_pos, { robot_obs });
 						}
 						else
 						{
-							TG::application::SLAM::message::position robot_pos{ pos[0], pos[1] };
+							NTNU::application::SLAM::message::position robot_pos{ pos[0], pos[1] };
 							msg.set_payload(robot_pos);
 						}
 						call_callback(mqtt_panel_events::PUBLISH_REQUEST, msg);

@@ -1,9 +1,9 @@
 #include "circle_grid.h"
 #include <iostream>
 
-using TG::gui::collections::circles;
+using NTNU::gui::collections::circles;
 
-namespace TG::gui::elements
+namespace NTNU::gui::elements
 {
 
 circle_grid::circle_grid(int rows, int columns, int separation, sf::Color color) :

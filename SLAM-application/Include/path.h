@@ -4,7 +4,7 @@
 #include "circles.h"
 #include "lines.h"
 
-namespace TG::gui::base
+namespace NTNU::gui::base
 {
 
 class path : public sf::Drawable, public sf::Transformable

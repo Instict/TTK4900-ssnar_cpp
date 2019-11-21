@@ -1,7 +1,7 @@
 #include "MQTT_utility.h"
 #include <vector>
 
-namespace TG::networking::protocols::MQTT::utility
+namespace NTNU::networking::protocols::MQTT::utility
 {
 
 std::optional<topic> parse_topic(const std::string & mqtt_topic)

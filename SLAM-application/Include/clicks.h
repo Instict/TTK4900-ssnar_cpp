@@ -2,7 +2,7 @@
 #include "panel.h"
 #include "callbacks.h"
 
-namespace TG::gui::panel
+namespace NTNU::gui::panel
 {
 
 enum class clicks_events
@@ -18,7 +18,7 @@ enum clicks_choices : int
 	obstruct = 2,
 };
 
-class clicks : public panel, public TG::utility::callbacks<clicks_events, clicks_choices>
+class clicks : public panel, public NTNU::utility::callbacks<clicks_events, clicks_choices>
 {
 public:
 	clicks();

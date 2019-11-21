@@ -2,7 +2,7 @@
 #include "panel.h"
 #include <stdbool.h>
 
-namespace TG::gui::panel {
+namespace NTNU::gui::panel {
 
 class simulation_panel :
 	public panel
@@ -15,8 +15,8 @@ public:
 	bool get_robot_sim_enable();
 
 private:
-	bool robot_sim_ = false;
-	bool robot_sim_enable_ = false;
+	bool robot_sim_;
+
 };
 
 }

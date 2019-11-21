@@ -1,7 +1,7 @@
 #include "control_panel.h"
 #include "imgui.h"
 
-namespace TG::gui::panel
+namespace NTNU::gui::panel
 {
 
 control_panel::control_panel()
@@ -34,7 +34,7 @@ control_panel::control_panel()
 	});
 }
 
-void control_panel::embed_panel(const TG::gui::panel::panel * panel, const std::string & title)
+void control_panel::embed_panel(const NTNU::gui::panel::panel * panel, const std::string & title)
 {
 	panels_.emplace_back(std::make_pair(panel, title));
 }

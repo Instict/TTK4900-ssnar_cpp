@@ -5,7 +5,7 @@
 #include <optional>
 #include <variant>
 
-namespace TG::application::SLAM
+namespace NTNU::application::SLAM
 {
 
 class message

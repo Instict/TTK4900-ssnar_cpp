@@ -4,7 +4,7 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
-namespace TG::gui::collections
+namespace NTNU::gui::collections
 {
 
 class lines : public sf::Drawable, public sf::Transformable

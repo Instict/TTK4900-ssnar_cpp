@@ -4,7 +4,7 @@
 #include <functional>
 #include <any>
 
-namespace TG::utility
+namespace NTNU::utility
 {
 template<typename Key, typename FunParam = std::any>
 class callbacks

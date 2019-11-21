@@ -4,7 +4,7 @@
 
 using namespace boost;
 
-namespace TG::graph::base
+namespace NTNU::graph::base
 {
 
 grid::grid(int rows, int cols) :
@@ -15,7 +15,7 @@ grid::grid(int rows, int cols) :
 
 void grid::reset_to(int rows, int cols)
 {
-	grid_ = std::make_unique<TG::graph::grid::bgrid>(array<std::size_t, 2>({ std::size_t(rows), std::size_t(cols) }));
+	grid_ = std::make_unique<NTNU::graph::grid::bgrid>(array<std::size_t, 2>({ std::size_t(rows), std::size_t(cols) }));
 }
 
 int grid::rows() const

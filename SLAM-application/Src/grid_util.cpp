@@ -4,7 +4,7 @@
 
 using vertex_descriptor = boost::graph_traits<boost::grid_graph<2>>::vertex_descriptor;
 
-namespace TG::graph::grid::utility
+namespace NTNU::graph::grid::utility
 {
 
 vertex_descriptor convert(int row, int col)

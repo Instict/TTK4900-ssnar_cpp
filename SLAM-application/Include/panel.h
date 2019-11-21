@@ -5,7 +5,7 @@
 
 #include "panel_base.h"
 
-namespace TG::gui::panel
+namespace NTNU::gui::panel
 {
 
 class panel

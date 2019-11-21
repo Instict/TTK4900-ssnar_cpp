@@ -2,10 +2,10 @@
 #include <iostream>
 #include <random>
 
-namespace TG::application::SLAM::utility
+namespace NTNU::application::SLAM::utility
 {
 
-std::optional<std::pair<float, float>> row_col_to_coord(const TG::application::SLAM::slam_grid & grid, int row, int col)
+std::optional<std::pair<float, float>> row_col_to_coord(const NTNU::application::SLAM::slam_grid & grid, int row, int col)
 {
 	if (row < 0 || col < 0)
 	{
@@ -30,7 +30,7 @@ std::optional<std::pair<float, float>> row_col_to_coord(const TG::application::S
 	return std::make_pair(x, y);
 }
 
-std::optional<std::pair<int, int>> coord_to_row_col(const TG::application::SLAM::slam_grid & grid, float x, float y)
+std::optional<std::pair<int, int>> coord_to_row_col(const NTNU::application::SLAM::slam_grid & grid, float x, float y)
 {
 	// Coordinates are signed,
 	// row, col are unsigned.
@@ -60,7 +60,7 @@ std::optional<std::pair<int, int>> coord_to_row_col(const TG::application::SLAM:
 	return std::make_pair(row, col);
 }
 
-std::vector<std::pair<float, float>> points_to_coords(const TG::application::SLAM::slam_grid & grid, const std::vector<std::pair<int, int>>& points)
+std::vector<std::pair<float, float>> points_to_coords(const NTNU::application::SLAM::slam_grid & grid, const std::vector<std::pair<int, int>>& points)
 {
 	std::vector<std::pair<float, float>> coords;
 

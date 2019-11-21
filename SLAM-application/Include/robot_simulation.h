@@ -3,7 +3,7 @@
 #include <string>
 #include "MQTT.h"
 
-namespace TG::application::SLAM
+namespace NTNU::application::SLAM
 {
 
 struct robot_simulation_config {
@@ -23,7 +23,7 @@ public:
 	~robot_simulation() {};
 
 private:
-	TG::networking::protocols::MQTT::MQTT mqtt_;
+	NTNU::networking::protocols::MQTT::MQTT mqtt_;
 	std::string topic_;
 
 	int x_;

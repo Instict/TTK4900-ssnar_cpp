@@ -8,7 +8,7 @@
 
 #include "callbacks.h"
 
-namespace TG::networking::protocols::MQTT {
+namespace NTNU::networking::protocols::MQTT {
 
 enum class MQTT_events {
 	connect_response,
@@ -20,7 +20,7 @@ enum class MQTT_events {
 	delivery_complete,
 };
 
-class MQTT : public TG::utility::callbacks<MQTT_events>
+class MQTT : public NTNU::utility::callbacks<MQTT_events>
 {
 public:
 	enum Result {

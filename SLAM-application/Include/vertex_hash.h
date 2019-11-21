@@ -4,7 +4,7 @@
 #include <boost/graph/grid_graph.hpp>
 #include <boost/container_hash/hash.hpp>
 
-namespace TG::graph::grid
+namespace NTNU::graph::grid
 {
 
 // Uses both indices ({x, y}) as seed for hash.

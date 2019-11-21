@@ -6,13 +6,13 @@
 #include <vector>
 #include "slam_grid.h"
 
-namespace TG::application::SLAM::utility
+namespace NTNU::application::SLAM::utility
 {
 
-std::optional<std::pair<float, float>> row_col_to_coord(const TG::application::SLAM::slam_grid& grid, int row, int col);
-std::optional<std::pair<int, int>> coord_to_row_col(const TG::application::SLAM::slam_grid& grid, float x, float y);
+std::optional<std::pair<float, float>> row_col_to_coord(const NTNU::application::SLAM::slam_grid& grid, int row, int col);
+std::optional<std::pair<int, int>> coord_to_row_col(const NTNU::application::SLAM::slam_grid& grid, float x, float y);
 
-std::vector<std::pair<float, float>> points_to_coords(const TG::application::SLAM::slam_grid& grid, const std::vector<std::pair<int, int>>& points);
+std::vector<std::pair<float, float>> points_to_coords(const NTNU::application::SLAM::slam_grid& grid, const std::vector<std::pair<int, int>>& points);
 
 int get_random(int min, int max);
 

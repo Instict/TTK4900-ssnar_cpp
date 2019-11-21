@@ -8,7 +8,7 @@
 #include "callbacks.h"
 #include "robot.h"
 
-namespace TG::application::SLAM
+namespace NTNU::application::SLAM
 {
 
 class message;
@@ -23,9 +23,9 @@ enum class robots_events
 class robots :
 	public sf::Drawable,
 	public sf::Transformable,
-	public TG::gui::panel::panel,
-	public TG::gui::base::updatable,
-	public TG::utility::callbacks<robots_events>
+	public NTNU::gui::panel::panel,
+	public NTNU::gui::base::updatable,
+	public NTNU::utility::callbacks<robots_events>
 {
 public:
 	robots();

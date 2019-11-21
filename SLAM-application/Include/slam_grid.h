@@ -8,7 +8,7 @@
 #include <map>
 #include <SFML/Graphics.hpp>
 
-namespace TG::application::SLAM
+namespace NTNU::application::SLAM
 {
 
 enum class slam_grid_events
@@ -18,10 +18,10 @@ enum class slam_grid_events
 };
 
 class slam_grid :
-	public TG::gui::panel::panel,
-	public TG::graph::grid::obstructable_grid,
-	public TG::gui::elements::circle_grid,
-	public TG::utility::callbacks<slam_grid_events>
+	public NTNU::gui::panel::panel,
+	public NTNU::graph::grid::obstructable_grid,
+	public NTNU::gui::elements::circle_grid,
+	public NTNU::utility::callbacks<slam_grid_events>
 {
 public:
 	slam_grid(int rows, int cols, int separation, sf::Color color = sf::Color::Green);

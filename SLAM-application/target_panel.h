@@ -5,7 +5,7 @@
 
 using ipair = std::pair<int, int>;
 
-namespace TG::gui::panel 
+namespace NTNU::gui::panel 
 {
 	class target_panel :
 		public panel

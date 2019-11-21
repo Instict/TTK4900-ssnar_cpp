@@ -4,10 +4,10 @@
 #include <set>
 #include "grid_common.h"
 
-using point = TG::graph::grid::point;
-using filtered_grid = TG::graph::grid::filtered_grid;
+using point = NTNU::graph::grid::point;
+using filtered_grid = NTNU::graph::grid::filtered_grid;
 
-namespace TG::graph::pathfinding
+namespace NTNU::graph::pathfinding
 {
 
 std::optional<std::vector<point>> solve(const filtered_grid& grid, point from, point to);

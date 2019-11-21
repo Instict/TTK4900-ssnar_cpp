@@ -3,7 +3,7 @@
 #include "callbacks.h"
 #include <mutex>
 
-namespace TG::gui::panel
+namespace NTNU::gui::panel
 {
 
 enum class mqtt_panel_events
@@ -14,7 +14,7 @@ enum class mqtt_panel_events
 
 class mqtt_panel :
 	public panel,
-	public TG::utility::callbacks<mqtt_panel_events>
+	public NTNU::utility::callbacks<mqtt_panel_events>
 {
 public:
 	mqtt_panel(const std::string& mqtt_client_name = "");

@@ -1,6 +1,6 @@
 #include "path.h"
 
-namespace TG::gui::base
+namespace NTNU::gui::base
 {
 
 path::path(int line_thickness, int circle_radius, sf::Color color) :

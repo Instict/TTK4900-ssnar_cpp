@@ -68,20 +68,21 @@ int main()
 	auto grid_color = sf::Color::Green;
 	grid_color.a = alpha;
 
-	TG::application::SLAM::slam_grid grid(rows, cols, separation, grid_color);
-	TG::application::SLAM::robots robots;
+	NTNU::application::SLAM::slam_grid grid(rows, cols, separation, grid_color);
+	NTNU::application::SLAM::robots robots;
 
 	// Panels
-	TG::gui::panel::mqtt_panel mqtt_panel;
-	TG::gui::panel::clicks clicks;
-	TG::gui::panel::target_panel target_panel;
-	TG::gui::panel::simulation_panel simulation_panel;
+	NTNU::gui::panel::control_panel ctrl_panel;
+	NTNU::gui::panel::mqtt_panel mqtt_panel;
+	NTNU::gui::panel::clicks clicks;
+	NTNU::gui::panel::target_panel target_panel;
+	NTNU::gui::panel::simulation_panel simulation_panel;
 
 	////////////////////////////////////////////////////////////////////////////////
 	// GUI: Create window, add children
 	////////////////////////////////////////////////////////////////////////////////
 
-	TG::gui::base::window win;
+	NTNU::gui::base::window win;
 	// Flip y-axis by default.
 	// This positive y upwards when looking at the screen.
 	// This is in line with the robots---the default (y upwards negative) is not.
@@ -97,19 +98,7 @@ int main()
 	// Updatable
 	win.add_updatable(&robots);
 
-
-	// Panels
-	TG::gui::panel::control_panel ctrl_panel;
-	//	TESTING!!
-	/*
-	TG::gui::panel::panel robot_sim;
-	bool robot_sim_enable = false;
-	robot_sim.set_fun([&robot_sim_enable]() {
-		ImGui::Checkbox("Simulation On", &robot_sim_enable);
-	});
-	*/
-
-	TG::gui::panel::panel main_panel;
+	NTNU::gui::panel::panel main_panel;
 	bool yaxis_flip = true;
 	main_panel.set_fun([&win, &yaxis_flip]() {
 		if (ImGui::Checkbox("Flip Y-axis", &yaxis_flip)) {
@@ -125,70 +114,6 @@ int main()
 			win.setRotation(thor::toDegree(rotation));
 		}
 	});
-	// TESTING
-	/*
-	TG::gui::panel::panel target_panel;
-	bool manual_robot_drive = false;
-	ipair manual_target{ 0, 0 };
-	target_panel.set_fun([&]() {
-		static bool bottom_left_corner_is_start = true;
-		static int offset = 0;
-		const ImVec2 btn_size{ 200, 0 };
-		static int square_size_double{ 500 };
-		static int square_size{ 250 };
-
-		ImGui::Checkbox("Enable Manual Drive", &manual_robot_drive);
-		ImGui::Checkbox("Bottom-Left Corner Is Starting Point", &bottom_left_corner_is_start);
-
-		offset = bottom_left_corner_is_start ? square_size : 0;
-
-		if (ImGui::InputInt("Square Size", &square_size_double, 2))
-			square_size = square_size_double / 2;
-
-		ImGui::Spacing();
-
-		if (ImGui::Button("Top-Left Corner", btn_size))
-			manual_target = { -square_size + offset, square_size + offset };
-		ImGui::SameLine();
-		ImGui::Text("X [%d], Y [%d]", -square_size + offset, square_size + offset);
-
-		if (ImGui::Button("Top-Right Corner", btn_size))
-			manual_target = { square_size + offset, square_size + offset };
-		ImGui::SameLine();
-		ImGui::Text("X [%d], Y [%d]", square_size + offset, square_size + offset);
-
-		if (ImGui::Button("Bottom-Left Corner", btn_size))
-			manual_target = { -square_size + offset, -square_size + offset };
-		ImGui::SameLine();
-		ImGui::Text("X [%d], Y [%d]", -square_size + offset, -square_size + offset);
-
-		if (ImGui::Button("Bottom-Right Corner", btn_size))
-			manual_target = { square_size + offset, -square_size + offset };
-		ImGui::SameLine();
-		ImGui::Text("X [%d], Y [%d]", square_size + offset, -square_size + offset);
-
-		ImGui::Spacing();
-
-		static int manual_input[2] = { 0, 0 };
-		if (ImGui::InputInt2("Manual Input", manual_input))
-			manual_target = { manual_input[0], manual_input[1] };
-
-		ImGui::Spacing();
-
-		ImGui::Text("Current target is: X [%d], Y [%d]", manual_target.first, manual_target.second);
-	});
-	*/
-///////////////////////////////////////// 
-	//	TEST	//
-///////////////////////////////////////// 
-	TG::gui::panel::panel example_panel;
-	example_panel.set_fun([&] {					
-		static int slider_value = 0;
-		ImGui::SliderInt("Some Value", &slider_value, -100, 100);
-		if (ImGui::Button("Click me!"))
-			std::cout << "I was clicked! Slider has value: " << slider_value << "\n";
-		});
-	ctrl_panel.embed_panel(&example_panel, "Example");
 
 	ctrl_panel.embed_panel(&main_panel, "Main");
 	ctrl_panel.embed_panel(&mqtt_panel, "MQTT");
@@ -198,13 +123,14 @@ int main()
 	ctrl_panel.embed_panel(&grid, "Grid");
 	ctrl_panel.embed_panel(&simulation_panel, "Robot Simulation");
 
+
 	win.add_panel(&ctrl_panel);
 
 	////////////////////////////////////////////////////////////////////////////////
 	// Setup channels for communication between callbacks and fibers
 	////////////////////////////////////////////////////////////////////////////////
 	using string_channel = boost::fibers::buffered_channel<std::string>;
-	using slam_channel = boost::fibers::buffered_channel<TG::application::SLAM::message>;
+	using slam_channel = boost::fibers::buffered_channel<NTNU::application::SLAM::message>;
 
 	slam_channel slam_ch{ 32 };
 	slam_channel mqtt_to_publish_ch{ 32 };
@@ -214,7 +140,7 @@ int main()
 	// Callbacks
 	////////////////////////////////////////////////////////////////////////////////
 
-	ctrl_panel.enable_callback(TG::gui::panel::control_panel_event::QUIT, [&win](auto a) {
+	ctrl_panel.enable_callback(NTNU::gui::panel::control_panel_event::QUIT, [&win](auto a) {
 		win.close();
 	});
 
@@ -224,7 +150,7 @@ int main()
 
 		for (const auto&[x, y] : obstacles)
 		{
-			auto convert_to_grid = TG::application::SLAM::utility::coord_to_row_col(grid, x, y);
+			auto convert_to_grid = NTNU::application::SLAM::utility::coord_to_row_col(grid, x, y);
 			if (convert_to_grid)
 			{
 				auto[row, col] = convert_to_grid.value();
@@ -241,7 +167,7 @@ int main()
 
 		auto source = get_pos.value();
 		// Robot positions are given in global coordinates...
-		auto result = TG::application::SLAM::utility::coord_to_row_col(grid, source.first, source.second);
+		auto result = NTNU::application::SLAM::utility::coord_to_row_col(grid, source.first, source.second);
 		if (!result)
 			return;
 
@@ -249,14 +175,14 @@ int main()
 		source = { robo_row, robo_col };
 
 		// ... paths are solved in terms of the underlying grid (which uses rows and columns)...
-		auto path = TG::graph::pathfinding::solve(grid.get_filtered_grid(), source, target);
+		auto path = NTNU::graph::pathfinding::solve(grid.get_filtered_grid(), source, target);
 		if (!path)
 			return;
 
 		// ... reduce the given path to straight lines ...
-		auto rpath = TG::graph::pathfinding::reduce(path.value());
+		auto rpath = NTNU::graph::pathfinding::reduce(path.value());
 		// ... and convert it back to global coordinates ...
-		if (auto coords = TG::application::SLAM::utility::points_to_coords(grid, rpath); robots.navigate())
+		if (auto coords = NTNU::application::SLAM::utility::points_to_coords(grid, rpath); robots.navigate())
 		{
 			// ... apply this new path to the given robot.
 			robots.set_path(robot, coords);
@@ -274,10 +200,10 @@ int main()
 
 		std::cout << "Mouse button press: {" << pos.x << ", " << pos.y << "}" << std::endl;
 
-		auto grid_idx = TG::application::SLAM::utility::coord_to_row_col(grid, pos.x, pos.y);
+		auto grid_idx = NTNU::application::SLAM::utility::coord_to_row_col(grid, pos.x, pos.y);
 		if (grid_idx)
 		{
-			using TG::gui::panel::clicks_choices;
+			using NTNU::gui::panel::clicks_choices;
 			const auto[row, col] = grid_idx.value();
 
 			if (e.mouseButton.button == sf::Mouse::Left && clicks.left_is(clicks_choices::obstruct)
@@ -333,13 +259,13 @@ int main()
 		}
 	});
 
-	robots.enable_callback(TG::application::SLAM::robots_events::ROBOT_CLEARED_POINTS, [&](std::any context) {
+	robots.enable_callback(NTNU::application::SLAM::robots_events::ROBOT_CLEARED_POINTS, [&](std::any context) {
 		try
 		{
 			auto obstacles = std::any_cast<std::vector<std::pair<int, int>>>(context);
 			for (const auto&[x, y] : obstacles)
 			{
-				auto result = TG::application::SLAM::utility::coord_to_row_col(grid, x, y);
+				auto result = NTNU::application::SLAM::utility::coord_to_row_col(grid, x, y);
 				if (result)
 				{
 					auto[row, col] = result.value();
@@ -350,7 +276,7 @@ int main()
 		catch (const std::bad_any_cast& e) { std::cout << e.what(); }
 	});
 
-	robots.enable_callback(TG::application::SLAM::robots_events::ROBOT_MOVED, [&](std::any context) {
+	robots.enable_callback(NTNU::application::SLAM::robots_events::ROBOT_MOVED, [&](std::any context) {
 		try
 		{
 			auto[id, x, y] = std::any_cast<std::tuple<std::string, int16_t, int16_t>>(context);
@@ -359,13 +285,13 @@ int main()
 		catch (const std::bad_any_cast& e) { std::cout << e.what(); }
 	});
 
-	robots.enable_callback(TG::application::SLAM::robots_events::ROBOT_FOUND_OBSTACLE, [&](std::any context) {
+	robots.enable_callback(NTNU::application::SLAM::robots_events::ROBOT_FOUND_OBSTACLE, [&](std::any context) {
 		try
 		{
 			auto[id, x, y] = std::any_cast<std::tuple<std::string, int16_t, int16_t>>(context);
 			//std::cout << "Robot [" << id << "] obstacle at {" << x << ", " << y << "}\n";
 
-			auto convert_to_grid = TG::application::SLAM::utility::coord_to_row_col(grid, x, y);
+			auto convert_to_grid = NTNU::application::SLAM::utility::coord_to_row_col(grid, x, y);
 			if (convert_to_grid)
 			{
 				auto[row, col] = convert_to_grid.value();
@@ -376,7 +302,7 @@ int main()
 			if (has_target)
 			{
 				auto[tx, ty] = has_target.value();
-				auto target = TG::application::SLAM::utility::coord_to_row_col(grid, tx, ty);
+				auto target = NTNU::application::SLAM::utility::coord_to_row_col(grid, tx, ty);
 				if (target)
 					update_path_for_robot(id, target.value());
 			}
@@ -384,12 +310,12 @@ int main()
 		catch (const std::bad_any_cast& e) { std::cout << e.what(); }
 	});
 
-	mqtt_panel.enable_callback(TG::gui::panel::mqtt_panel_events::PUBLISH_REQUEST, [&](std::any context) {
+	mqtt_panel.enable_callback(NTNU::gui::panel::mqtt_panel_events::PUBLISH_REQUEST, [&](std::any context) {
 		try
 		{
 			std::cout << "Publish req\n";
 
-			auto msg = std::any_cast<TG::application::SLAM::message>(context);
+			auto msg = std::any_cast<NTNU::application::SLAM::message>(context);
 			if (mqtt_to_publish_ch.try_push(msg) !=
 				boost::fibers::channel_op_status::success)
 				std::cerr << "Could not put onto pub ch!\n";
@@ -397,7 +323,7 @@ int main()
 		catch (const std::bad_any_cast& e) { std::cout << e.what(); }
 	});
 
-	mqtt_panel.enable_callback(TG::gui::panel::mqtt_panel_events::SUBSCRIBE_REQUEST, [&](std::any context) {
+	mqtt_panel.enable_callback(NTNU::gui::panel::mqtt_panel_events::SUBSCRIBE_REQUEST, [&](std::any context) {
 		try
 		{
 			auto topic = std::any_cast<std::string>(context);
@@ -410,11 +336,11 @@ int main()
 		catch (const std::bad_any_cast& e) { std::cout << e.what(); }
 	});
 
-	grid.enable_callback(TG::application::SLAM::slam_grid_events::GRID_GEOMETRY_CHANGED, [&](std::any a) {
+	grid.enable_callback(NTNU::application::SLAM::slam_grid_events::GRID_GEOMETRY_CHANGED, [&](std::any a) {
 		reapply_obstruction_points(a);
 	});
 
-	grid.enable_callback(TG::application::SLAM::slam_grid_events::NODE_OBSTRUCTED, [&](std::any context) {
+	grid.enable_callback(NTNU::application::SLAM::slam_grid_events::NODE_OBSTRUCTED, [&](std::any context) {
 
 	});
 
@@ -433,10 +359,10 @@ int main()
 	});
 
 	fiber mqtt_f([&] {
-		TG::networking::protocols::MQTT::MQTT mqttClient(MQTT_ADDRESS);
+		NTNU::networking::protocols::MQTT::MQTT mqttClient(MQTT_ADDRESS);
 		mqtt_panel.set_client_id(mqttClient.getClientId());
 
-		using TG::networking::protocols::MQTT::MQTT_events;
+		using NTNU::networking::protocols::MQTT::MQTT_events;
 		// Shorthand for the format mqtt_panel uses for messages.
 		using mqtt_msg = std::pair<std::string, std::string>;
 
@@ -460,42 +386,12 @@ int main()
 			{
 				auto[topic, msg] = std::any_cast<mqtt_msg>(any);
 				mqtt_panel.add_msg_in(topic, msg);
-				TG::application::SLAM::message slam_msg(topic);
+				NTNU::application::SLAM::message slam_msg(topic);
 				slam_msg.set_payload(msg);
 				
 
 				//std::cout << "Message arrived: " << topic << " | " << msg << '\n';	
-				// FOR TESTING PURPOSE //
-				/*
-				std::cout << ".enable_callback: ";
-				for (int i = 0; i < msg.length(); i++) {
-					std::cout << msg[i];
-				}
-				std::cout << std::endl;
-				
-				std::vector<std::byte> raw;
 
-				for (const auto& ch : msg) {
-					auto byte = std::byte(ch);
-					raw.push_back(byte);
-				}
-				auto iterator = raw.begin();
-
-				std::cout << "pX: " << TG::application::SLAM::utility::from_byte_ptr(&(*iterator));
-				iterator += 2;
-				std::cout << " pY: " <<TG::application::SLAM::utility::from_byte_ptr(&(*iterator));
-				iterator += 2;
-
-				for (iterator; iterator < raw.end();)
-				{
-					std::cout << "oX: " << TG::application::SLAM::utility::from_byte_ptr(&(*iterator));
-					iterator += 2;
-					std::cout << " oY: " << TG::application::SLAM::utility::from_byte_ptr(&(*iterator));
-					iterator += 2;
-					std::cout << std::endl;
-				}
-				*/
-				// FOR TESTING PURPOSE //
 				
 				
 				if (slam_ch.try_push(slam_msg) !=
@@ -527,7 +423,7 @@ int main()
 			catch (const std::bad_any_cast& e) { std::cout << e.what(); }
 		});
 
-		if (mqttClient.connect() != TG::networking::protocols::MQTT::MQTT::SUCCESS)
+		if (mqttClient.connect() != NTNU::networking::protocols::MQTT::MQTT::SUCCESS)
 		{
 			std::cout << "Connect returned fail!" << std::endl;
 		}
@@ -545,20 +441,20 @@ int main()
 			{
 				once = false;
 
-				if (mqttClient.subscribe("v1/robot/#") != TG::networking::protocols::MQTT::MQTT::SUCCESS)
+				if (mqttClient.subscribe("v1/robot/#") != NTNU::networking::protocols::MQTT::MQTT::SUCCESS)
 				{
 					std::cerr << "Subscribe error!" << std::endl;
 				}
 			}
 
-			using TG::application::SLAM::message;
+			using NTNU::application::SLAM::message;
 			using boost::fibers::channel_op_status;
 
 			// Mqtt: Subscribe to channels if requested to do so
 			if (std::string topic; mqtt_to_subscribe_ch.try_pop(topic) ==
 				channel_op_status::success) {
 				std::cout << "Got a request to subscribe to: " << topic << '\n';
-				if (mqttClient.subscribe(topic) != TG::networking::protocols::MQTT::MQTT::SUCCESS)
+				if (mqttClient.subscribe(topic) != NTNU::networking::protocols::MQTT::MQTT::SUCCESS)
 				{
 					std::cerr << "Subscribe error from request!" << std::endl;
 				}
@@ -569,7 +465,7 @@ int main()
 				channel_op_status::success) {
 				std::cout << "Got a request to publish to: " << msg.sender() << '\n';
 
-				if (mqttClient.publish(msg.sender(), msg.serialize()) != TG::networking::protocols::MQTT::MQTT::SUCCESS)
+				if (mqttClient.publish(msg.sender(), msg.serialize()) != NTNU::networking::protocols::MQTT::MQTT::SUCCESS)
 					std::cout << "Bad publish from request\n";
 			}
 
@@ -580,7 +476,7 @@ int main()
 	fiber robots_inbox_f([&] {
 		for (;;)
 		{
-			TG::application::SLAM::message msg;
+			NTNU::application::SLAM::message msg;
 			auto res = slam_ch.pop(msg);
 
 			if (res != boost::fibers::channel_op_status::success) {
@@ -598,7 +494,6 @@ int main()
 			yield();
 		}
 	});
-	// TESTING
 	
 	fiber robots_outbox_f([&] {
 		for (;;)
@@ -607,12 +502,11 @@ int main()
 			for (const auto& robot : all_robots)
 			{
 				std::optional<ipair> next_point = std::nullopt;
-				TG::gui::panel::target_panel manual_target;
-				TG::gui::panel::target_panel manual_robot_drive;
+
 				
-				if (manual_robot_drive.get_manual_robot_drive())
+				if (target_panel.get_manual_robot_drive())
 				{
-					next_point = manual_target.get_manual_target();
+					next_point = target_panel.get_manual_target();
 				}
 				else
 					next_point = robots.get_next_point(robot);
@@ -620,15 +514,15 @@ int main()
 				if (!next_point)
 					continue;
 
-				auto result = TG::networking::protocols::MQTT::utility::parse_topic(robot);
+				auto result = NTNU::networking::protocols::MQTT::utility::parse_topic(robot);
 				if (result)
 				{
 					auto mqtt_topic = result.value();
 
-					TG::application::SLAM::message msg(mqtt_topic.version + "/server/" + mqtt_topic.id + "/cmd");
+					NTNU::application::SLAM::message msg(mqtt_topic.version + "/server/" + mqtt_topic.id + "/cmd");
 
 					auto[nx, ny] = next_point.value();
-					TG::application::SLAM::message::position pos{ nx, ny };
+					NTNU::application::SLAM::message::position pos{ nx, ny };
 					msg.set_payload(pos);
 				//	std::cout << "Next point, X: " << pos.x << " Y: " << pos.y << std::endl;		//testing purpose
 					auto result = mqtt_to_publish_ch.push(msg);
@@ -655,15 +549,14 @@ int main()
 	Robot Simulation
 	*/
 	fiber robot_simulation_f([&] {
-		TG::application::SLAM::robot_simulation_config config = { MQTT_ADDRESS, "v1/robot/simulated/adv", 3, 25 };
-		TG::application::SLAM::robot_simulation robot_sim{ config };
-		TG::gui::panel::simulation_panel robot_sim_enable;		//	TESTING
+		NTNU::application::SLAM::robot_simulation_config config = { MQTT_ADDRESS, "v1/robot/simulated/adv", 3, 25 };
+		NTNU::application::SLAM::robot_simulation robot_sim{ config };
+
 		// Grace time (for e.g. MQTT connection)
 		sleep_until(system_clock::now() + seconds(3));
-		std::cout << "robot_sim_enable: " << robot_sim_enable.get_robot_sim_enable() << std::endl;	//	TESTING
 		for (;;)
 		{
-			if (robot_sim_enable.get_robot_sim_enable())	//	TESTING
+			if (simulation_panel.get_robot_sim_enable())	//	TESTING
 				robot_sim.run();
 
 			auto next_time = system_clock::now() + milliseconds(10);

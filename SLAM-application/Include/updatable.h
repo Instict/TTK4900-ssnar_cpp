@@ -2,7 +2,7 @@
 
 #include <SFML/System/Time.hpp>
 
-namespace TG::gui::base
+namespace NTNU::gui::base
 {
 
 class updatable

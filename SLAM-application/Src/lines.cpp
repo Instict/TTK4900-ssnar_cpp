@@ -2,7 +2,7 @@
 #include <iostream>
 #include <Thor/Vectors.hpp>
 
-namespace TG::gui::collections
+namespace NTNU::gui::collections
 {
 
 lines::lines(int thickness) :

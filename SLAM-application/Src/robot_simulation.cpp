@@ -4,7 +4,7 @@
 #include "slam_message.h"
 #include "slam_utility.h"
 
-namespace TG::application::SLAM
+namespace NTNU::application::SLAM
 {
 
 robot_simulation::robot_simulation(const struct robot_simulation_config& config) :
@@ -18,7 +18,7 @@ robot_simulation::robot_simulation(const struct robot_simulation_config& config)
 
 void robot_simulation::run()
 {
-	using TG::application::SLAM::utility::get_random;
+	using NTNU::application::SLAM::utility::get_random;
 
 	x_ += get_random(-crawl_speed_, crawl_speed_);
 	y_ += get_random(-crawl_speed_, crawl_speed_);
@@ -26,9 +26,9 @@ void robot_simulation::run()
 	obs_x_ += get_random(-obstacle_spread_, obstacle_spread_);
 	obs_y_ += get_random(-obstacle_spread_, obstacle_spread_);
 
-	TG::application::SLAM::message msg(topic_);
-	TG::application::SLAM::message::position pos{ x_, y_ };
-	TG::application::SLAM::message::position obs{ obs_x_, obs_y_ };
+	NTNU::application::SLAM::message msg(topic_);
+	NTNU::application::SLAM::message::position pos{ x_, y_ };
+	NTNU::application::SLAM::message::position obs{ obs_x_, obs_y_ };
 
 	//std::cout << "Simulation: {" << pos.x << ", " << pos.y << "}, obs: {" << obs.x << ", " << obs.y << "}\n";
 

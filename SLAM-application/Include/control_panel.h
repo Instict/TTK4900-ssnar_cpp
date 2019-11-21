@@ -2,7 +2,7 @@
 #include "panel.h"
 #include "callbacks.h"
 
-namespace TG::gui::panel
+namespace NTNU::gui::panel
 {
 enum class control_panel_event
 {
@@ -11,16 +11,16 @@ enum class control_panel_event
 
 class control_panel :
 	public panel,
-	public TG::utility::callbacks<enum control_panel_event>
+	public NTNU::utility::callbacks<enum control_panel_event>
 {
 public:
 	control_panel();
-	void embed_panel(const TG::gui::panel::panel* panel, const std::string& title);
+	void embed_panel(const NTNU::gui::panel::panel* panel, const std::string& title);
 
 	~control_panel() {};
 
 private:
-	std::vector<std::pair<const TG::gui::panel::panel*, std::string>> panels_;
+	std::vector<std::pair<const NTNU::gui::panel::panel*, std::string>> panels_;
 };
 
 }

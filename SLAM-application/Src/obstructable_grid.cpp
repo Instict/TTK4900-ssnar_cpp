@@ -2,11 +2,11 @@
 #include "obstructable_grid.h"
 #include "grid_util.h"
 
-using TG::graph::grid::utility::convert;
+using NTNU::graph::grid::utility::convert;
 
-namespace TG::graph::grid {
+namespace NTNU::graph::grid {
 obstructable_grid::obstructable_grid(int rows, int cols) :
-	TG::graph::base::grid(rows, cols)
+	NTNU::graph::base::grid(rows, cols)
 {
 	reset_to(rows, cols);
 }

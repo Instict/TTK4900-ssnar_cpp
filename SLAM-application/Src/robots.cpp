@@ -7,7 +7,7 @@
 #include <iostream>
 
 
-namespace TG::application::SLAM
+namespace NTNU::application::SLAM
 {
 
 robots::robots() :
@@ -158,7 +158,7 @@ const std::unique_ptr<robot>* robots::create_robot(const std::string& robot_id)
 		throw std::exception("Could not emplace robot.");
 
 	auto& robot = robot_entry->second;
-	robot->setColor(TG::application::SLAM::utility::get_random_color());
+	robot->setColor(NTNU::application::SLAM::utility::get_random_color());
 
 	robot->enable_callback(robot_events::POINTS_CLEARED, [&](std::any) {
 		call_callback(robots_events::ROBOT_CLEARED_POINTS, robot->get_obstacles());

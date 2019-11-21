@@ -1,7 +1,7 @@
 #include "panel.h"
 #include "imgui.h"
 
-namespace TG::gui::panel
+namespace NTNU::gui::panel
 {
 
 panel::panel(std::optional<std::string> title) :

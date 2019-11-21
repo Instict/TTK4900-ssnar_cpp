@@ -3,7 +3,7 @@
 #include <string>
 #include <optional>
 
-namespace TG::networking::protocols::MQTT::utility
+namespace NTNU::networking::protocols::MQTT::utility
 {
 
 struct topic {

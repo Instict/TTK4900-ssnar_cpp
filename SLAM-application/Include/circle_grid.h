@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 
-namespace TG::gui::elements
+namespace NTNU::gui::elements
 {
 
 class circle_grid : public sf::Transformable, public sf::Drawable

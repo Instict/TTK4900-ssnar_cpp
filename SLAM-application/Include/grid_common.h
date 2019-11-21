@@ -7,14 +7,14 @@
 #include <utility>
 #include "vertex_hash.h"
 
-namespace TG::graph::grid
+namespace NTNU::graph::grid
 {
 
 // Points are on the form (row, col)
 using point = std::pair<int, int>;
 
 using bgrid = boost::grid_graph<2>;
-using vertex_hash = TG::graph::grid::vertex_hash;
+using vertex_hash = NTNU::graph::grid::vertex_hash;
 using vertex_descriptor = boost::graph_traits<bgrid>::vertex_descriptor;
 
 typedef boost::unordered_set<vertex_descriptor, vertex_hash> vertex_set;

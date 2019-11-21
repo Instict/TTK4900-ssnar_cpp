@@ -2,13 +2,13 @@
 #include "target_panel.h"
 #include "window.h"
 
-namespace TG::gui::panel
+namespace NTNU::gui::panel
 {
-	target_panel::target_panel() 	
+	target_panel::target_panel() :
+		manual_target_({ 0, 0 }),
+		manual_robot_drive_(false)
 	{
-
-		set_manual_robot_drive(false);
-		set_manual_target({ 0, 0 });
+				
 		set_fun([&]() {
 			static bool bottom_left_corner_is_start = true;
 			static int offset = 0;

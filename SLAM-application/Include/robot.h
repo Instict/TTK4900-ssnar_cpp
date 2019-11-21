@@ -10,7 +10,7 @@
 #include "path.h"
 #include "callbacks.h"
 
-namespace TG::application::SLAM
+namespace NTNU::application::SLAM
 {
 
 enum class robot_events
@@ -21,9 +21,9 @@ enum class robot_events
 class robot :
 	public sf::Drawable,
 	public sf::Transformable,
-	public TG::gui::panel::panel,
-	public TG::gui::base::updatable,
-	public TG::utility::callbacks<enum robot_events>
+	public NTNU::gui::panel::panel,
+	public NTNU::gui::base::updatable,
+	public NTNU::utility::callbacks<enum robot_events>
 {
 public:
 	robot(const std::string& name);
@@ -54,10 +54,10 @@ private:
 	std::string name_;
 	float radius_;
 	sf::Color color_;
-	TG::gui::collections::circles circles_;
+	NTNU::gui::collections::circles circles_;
 	sf::CircleShape robot_marker_;
 	std::list<animated_line> animated_lines_;
-	TG::gui::base::path path_;
+	NTNU::gui::base::path path_;
 	sf::Texture robot_texture_;
 	sf::Sprite robot_sprite_;
 	float robot_scaling_;

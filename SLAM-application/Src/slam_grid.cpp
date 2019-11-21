@@ -2,10 +2,10 @@
 #include "imgui.h"
 #include <iostream>
 
-using TG::graph::grid::obstructable_grid;
-using TG::gui::elements::circle_grid;
+using NTNU::graph::grid::obstructable_grid;
+using NTNU::gui::elements::circle_grid;
 
-namespace TG::application::SLAM
+namespace NTNU::application::SLAM
 {
 
 slam_grid::slam_grid(int rows, int cols, int separation, sf::Color color) :

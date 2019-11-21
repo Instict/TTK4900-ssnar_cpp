@@ -4,7 +4,7 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
-namespace TG::gui::collections
+namespace NTNU::gui::collections
 {
 
 class circles : public sf::Drawable, public sf::Transformable

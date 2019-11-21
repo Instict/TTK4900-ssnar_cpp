@@ -4,9 +4,9 @@
 #include "grid_common.h"
 #include "grid.h"
 
-using TG::graph::base::grid;
+using NTNU::graph::base::grid;
 
-namespace TG::graph::grid {
+namespace NTNU::graph::grid {
 
 class obstructable_grid : public grid
 {

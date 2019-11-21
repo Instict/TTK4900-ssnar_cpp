@@ -4,19 +4,15 @@
 #include <iostream>	//	TESTING
 
 
-namespace TG::gui::panel 
+namespace NTNU::gui::panel 
 {
-	simulation_panel::simulation_panel()
+	simulation_panel::simulation_panel() :
+		robot_sim_(false)
 	{
-	//set_robot_sim_enable(false);
-		std::cout << "sim_pan enable:1 " << robot_sim_ << std::endl;
-		bool robot_sim_enable = get_robot_sim_enable();
-		set_robot_sim_enable(&robot_sim_enable);
-		std::cout << "sim_pan enable:2 " << robot_sim_ << std::endl;
-	
-	set_fun([&robot_sim_enable]() {
-		ImGui::Checkbox("Simulation On", &robot_sim_enable);
+		set_fun([&]() {
+			ImGui::Checkbox("Simulation On", &robot_sim_);
 		});
+
 	}
 	
 	void simulation_panel::set_robot_sim_enable(bool robot_sim) {

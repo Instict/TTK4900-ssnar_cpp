@@ -1,7 +1,7 @@
 #include "clicks.h"
 #include "imgui.h"
 
-namespace TG::gui::panel
+namespace NTNU::gui::panel
 {
 clicks::clicks() :
 	left_click_(clicks_choices::nothing),
