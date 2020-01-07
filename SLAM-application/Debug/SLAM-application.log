@@ -12,7 +12,7 @@ c:\temp\ssnar_cpp\slam-application\main.cpp(250): warning C4244: '+=': conversio
           ]
 c:\temp\ssnar_cpp\slam-application\main.cpp(268): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
 c:\temp\ssnar_cpp\slam-application\main.cpp(305): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\temp\ssnar_cpp\slam-application\main.cpp(526): warning C4838: conversion from 'int' to 'int16_t' requires a narrowing conversion
+c:\temp\ssnar_cpp\slam-application\main.cpp(525): warning C4838: conversion from 'int' to 'int16_t' requires a narrowing conversion
 c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.16.27023\include\utility(172): warning C4244: 'initializing': conversion from 'int' to '_Ty1', possible loss of data
           with
           [
@@ -65,6 +65,4 @@ c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.1
           [
               _Ty2=int
           ]
-  main_panel.cpp
-  Generating Code...
   SLAM-application.vcxproj -> C:\temp\ssnar_cpp\Debug\SLAM-application.exe

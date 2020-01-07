@@ -198,7 +198,7 @@ int main()
 		sf::Vector2f pos{ static_cast<float>(e.mouseButton.x), static_cast<float>(e.mouseButton.y) };
 		pos = win.getInverseTransform().transformPoint(pos);
 
-		std::cout << "Mouse button press: {" << pos.x << ", " << pos.y << "}" << std::endl;
+		//std::cout << "Mouse button press: {" << pos.x << ", " << pos.y << "}" << std::endl;
 
 		auto grid_idx = NTNU::application::SLAM::utility::coord_to_row_col(grid, pos.x, pos.y);
 		if (grid_idx)
