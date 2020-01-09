@@ -29,7 +29,14 @@ void robots::feed_message(const message & msg)
 		robot->get()->setPosition(sf::Vector2f(msg_x, msg_y));
 		auto context = std::make_tuple(robot_id, msg_x, msg_y);
 		call_callback(robots_events::ROBOT_MOVED, context);
-	}
+	} // TESTING
+	if(msg_x == bot_x && msg_y == bot_y){
+		robot->get()->setPosition(sf::Vector2f(msg_x, msg_y));
+		auto context = std::make_tuple(robot_id, msg_x, msg_y);
+		call_callback(robots_events::ROBOT_IDLE, context);
+		//auto next_time = system_clock::now() + milliseconds(2000);
+		//sleep_until(next_time);
+	} // TESTING
 
 	auto obstacles = msg.obstacles();
 	for (const auto& obstacle : obstacles)
@@ -60,6 +67,7 @@ void robots::feed_message(const message & msg)
 			}
 
 			ImGui::EndTabBar();
+
 		}
 
 	});

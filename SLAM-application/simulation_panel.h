@@ -14,6 +14,7 @@ public:
 	void set_robot_sim_enable(bool robot_sim);
 	bool get_robot_sim_enable();
 
+
 private:
 	bool robot_sim_;
 

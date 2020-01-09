@@ -111,6 +111,9 @@
     <ClInclude Include="simulation_panel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="robot_navigation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\circle_grid.cpp">
@@ -195,6 +198,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="simulation_panel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="robot_navigation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

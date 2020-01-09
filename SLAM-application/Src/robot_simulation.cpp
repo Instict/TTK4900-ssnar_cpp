@@ -22,14 +22,16 @@ void robot_simulation::run()
 
 	x_ += get_random(-crawl_speed_, crawl_speed_);
 	y_ += get_random(-crawl_speed_, crawl_speed_);
-
+	
 	obs_x_ += get_random(-obstacle_spread_, obstacle_spread_);
 	obs_y_ += get_random(-obstacle_spread_, obstacle_spread_);
+	
 
 	NTNU::application::SLAM::message msg(topic_);
 	NTNU::application::SLAM::message::position pos{ x_, y_ };
 	NTNU::application::SLAM::message::position obs{ obs_x_, obs_y_ };
 
+	//std::cout << "Random: {" << x_ << " : " << y_ << "} {" << pos.x << " : " << pos.y << "}\n";
 	//std::cout << "Simulation: {" << pos.x << ", " << pos.y << "}, obs: {" << obs.x << ", " << obs.y << "}\n";
 
 	msg.set_payload(pos, { obs });

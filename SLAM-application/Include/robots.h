@@ -17,7 +17,8 @@ enum class robots_events
 {
 	ROBOT_MOVED,				// Context: Tuple (id, x, y)
 	ROBOT_FOUND_OBSTACLE,		// Context: Tuple (id, x, y)
-	ROBOT_CLEARED_POINTS		// Context: std::vector<pair<int, int>> of all obstacles being cleared
+	ROBOT_CLEARED_POINTS,		// Context: std::vector<pair<int, int>> of all obstacles being cleared
+	ROBOT_IDLE
 };
 
 class robots :

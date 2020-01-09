@@ -12,6 +12,7 @@
 #include "path.h"
 #include "grid_path_solver.h"
 #include "robots.h"
+#include "robot_navigation.h"
 
 //	Panels
 #include "robot_simulation.h"
@@ -60,8 +61,8 @@ int main()
 	////////////////////////////////////////////////////////////////////////////////
 
 	// Drawables
-	auto rows = 30;
-	auto cols = 40;
+	auto rows = 60;
+	auto cols = 80;
 	auto separation = 30;
 	auto alpha = 60;
 
@@ -77,6 +78,7 @@ int main()
 	NTNU::gui::panel::clicks clicks;
 	NTNU::gui::panel::target_panel target_panel;
 	NTNU::gui::panel::simulation_panel simulation_panel;
+	NTNU::gui::panel::robot_navigation robot_navigation;
 
 	////////////////////////////////////////////////////////////////////////////////
 	// GUI: Create window, add children
@@ -122,6 +124,7 @@ int main()
 	ctrl_panel.embed_panel(&target_panel, "Manual Drive");
 	ctrl_panel.embed_panel(&grid, "Grid");
 	ctrl_panel.embed_panel(&simulation_panel, "Robot Simulation");
+	ctrl_panel.embed_panel(&robot_navigation, "Navigation Panel");
 
 
 	win.add_panel(&ctrl_panel);
@@ -275,12 +278,22 @@ int main()
 		}
 		catch (const std::bad_any_cast& e) { std::cout << e.what(); }
 	});
+	// TESTING
+	robots.enable_callback(NTNU::application::SLAM::robots_events::ROBOT_IDLE, [&](std::any context) {
+		try {
+			auto [id, x, y] = std::any_cast<std::tuple<std::string, int16_t, int16_t>>(context);
+			//std::cout << "Robot [" << id << "] idle at {" << x << ", " << y << "}\n";
 
+		}
+		catch (const std::bad_any_cast& e) { std::cout << e.what(); }
+		});
+	//TESTING
 	robots.enable_callback(NTNU::application::SLAM::robots_events::ROBOT_MOVED, [&](std::any context) {
 		try
 		{
 			auto[id, x, y] = std::any_cast<std::tuple<std::string, int16_t, int16_t>>(context);
-			//std::cout << "Robot [" << id << "] moved to {" << x << ", " << y << "}\n";
+			std::cout << "Robot [" << id << "] moved to {" << x << ", " << y << "}\n";
+			//std::cout << "Current position { " << msg_x << " , " << msg_y << " }\n";	//	testing
 		}
 		catch (const std::bad_any_cast& e) { std::cout << e.what(); }
 	});
@@ -303,12 +316,15 @@ int main()
 			{
 				auto[tx, ty] = has_target.value();
 				auto target = NTNU::application::SLAM::utility::coord_to_row_col(grid, tx, ty);
-				if (target)
+				if (target) {
 					update_path_for_robot(id, target.value());
+					std::cout << "Updated path for robot " << id << " : "  << "\n";
+				}
 			}
 		}
 		catch (const std::bad_any_cast& e) { std::cout << e.what(); }
 	});
+
 
 	mqtt_panel.enable_callback(NTNU::gui::panel::mqtt_panel_events::PUBLISH_REQUEST, [&](std::any context) {
 		try
@@ -389,11 +405,33 @@ int main()
 				NTNU::application::SLAM::message slam_msg(topic);
 				slam_msg.set_payload(msg);
 				
-
-				//std::cout << "Message arrived: " << topic << " | " << msg << '\n';	
-
+				//std::cout << "Subscribe: " << topic << " | " << msg << '\n';	
 				
+				// FOR TESTING PURPOSE //
+				/*
+				std::vector<std::byte> raw;
+
+				for (const auto& ch : msg) {
+					auto byte = std::byte(ch);
+					raw.push_back(byte);
+				}
+				auto iterator = raw.begin();
+				//std::cout << "pX: " << NTNU::application::SLAM::utility::from_byte_ptr(&(*iterator));
+				iterator += 2;
+				//std::cout << " pY: " << NTNU::application::SLAM::utility::from_byte_ptr(&(*iterator));
+				iterator += 2;
+
+				for (iterator; iterator < raw.end();)
+				{
+				//	std::cout << "oX: " << NTNU::application::SLAM::utility::from_byte_ptr(&(*iterator));
+					iterator += 2;
+				//	std::cout << " oY: " << NTNU::application::SLAM::utility::from_byte_ptr(&(*iterator));
+					iterator += 2;
+				//	std::cout << std::endl;
+				}
 				
+				// FOR TESTING PURPOSE //				
+				*/
 				if (slam_ch.try_push(slam_msg) !=
 					boost::fibers::channel_op_status::success)
 					std::cerr << "Could not put onto slam ch!\n";
@@ -417,7 +455,7 @@ int main()
 			try
 			{
 				auto[topic, msg] = std::any_cast<mqtt_msg>(any);
-				std::cout << "Publish response: " << topic << " | " << msg << '\n';
+				//std::cout << "Publish response: " << topic << " | " << msg << '\n';
 				mqtt_panel.add_msg_out(topic, msg);
 			}
 			catch (const std::bad_any_cast& e) { std::cout << e.what(); }
@@ -490,6 +528,7 @@ int main()
 			}
 
 			robots.feed_message(msg);
+
 
 			yield();
 		}
@@ -564,11 +603,81 @@ int main()
 		}
 	});
 
+
+
+	fiber robot_navigation_f([&] {
+		/*
+		NTNU::application::SLAM::robot_navigation_config config = { MQTT_ADDRESS, "v1/robot/Endre/adv" , 3, 25 };
+		NTNU::application::SLAM::robot_navigation robot_nav{ config };
+
+		sleep_until(system_clock::now() + seconds(3));
+		for (;;) {
+			if (simulation_panel.get_robot_nav_enable())
+				robot_nav.run();
+
+			auto next_time = system_clock::now() + milliseconds(10);
+			sleep_until(next_time);
+		}
+		*/
+		for (;;)
+		{
+			auto all_robots = robots.get_all_robot_ids();
+			for (const auto& robot : all_robots)
+			{
+				std::optional<ipair> next_point = std::nullopt;
+				//NTNU::application::SLAM::message::robot_pos&;
+				//NTNU::application::SLAM::robots::getPosition;
+				static int poss[2] = { 0 , 0 };
+				NTNU::application::SLAM::message::position pos;
+				
+				//std::cout << pos.robot_pos() << "\n";
+				if (robot_navigation.get_robot_nav_enable())
+				{
+					next_point = robot_navigation.get_manual_target();
+					robot_navigation.something();
+					//std::cout << "next point: "  << "\n";
+				}
+				else
+					next_point = robots.get_next_point(robot);
+
+				if (!next_point)
+					continue;
+
+				auto result = NTNU::networking::protocols::MQTT::utility::parse_topic(robot);
+				if (result)
+				{
+					auto mqtt_topic = result.value();
+
+					NTNU::application::SLAM::message msg(mqtt_topic.version + "/server/" + mqtt_topic.id + "/cmd");
+
+					auto [nx, ny] = next_point.value();
+					NTNU::application::SLAM::message::position pos{ nx, ny };
+					msg.set_payload(pos);
+					//std::cout << "Target: { " << pos.x << " , " << pos.y << " }" << std::endl;		//testing purpose
+					auto result = mqtt_to_publish_ch.push(msg);
+					if (result != boost::fibers::channel_op_status::success) {
+						std::cerr << "Robot push msg onto publish queue did not succeed!\n";
+					}
+				}
+				else
+				{
+					std::cout << "Bad topic parse?!" << '\n';
+				}
+
+
+				auto grace_time_over = system_clock::now() + milliseconds(100);
+				sleep_until(grace_time_over);
+			}
+
+			auto next_time = system_clock::now() + milliseconds(1000);
+			sleep_until(next_time);
+		}
+		});
 	gui_f.join();
 	mqtt_f.join();
 	robots_inbox_f.join();
 	robots_outbox_f.join();	//	TESTING
 	robot_simulation_f.join();
-
+	robot_navigation_f.join();
 	return 0;
 }
