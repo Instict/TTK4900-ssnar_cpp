@@ -19,6 +19,7 @@
 #include "control_panel.h"
 #include "target_panel.h"
 #include "simulation_panel.h"
+#include "navigation_panel.h"
 
 // C++ standard lib
 #include <vector>		// std::vector
@@ -78,7 +79,7 @@ int main()
 	NTNU::gui::panel::clicks clicks;
 	NTNU::gui::panel::target_panel target_panel;
 	NTNU::gui::panel::simulation_panel simulation_panel;
-	NTNU::gui::panel::robot_navigation robot_navigation;
+	NTNU::gui::panel::navigation_panel navigation_panel;
 
 	////////////////////////////////////////////////////////////////////////////////
 	// GUI: Create window, add children
@@ -124,7 +125,7 @@ int main()
 	ctrl_panel.embed_panel(&target_panel, "Manual Drive");
 	ctrl_panel.embed_panel(&grid, "Grid");
 	ctrl_panel.embed_panel(&simulation_panel, "Robot Simulation");
-	ctrl_panel.embed_panel(&robot_navigation, "Navigation Panel");
+	ctrl_panel.embed_panel(&navigation_panel, "Navigation Panel");
 
 
 	win.add_panel(&ctrl_panel);
@@ -164,6 +165,7 @@ int main()
 
 	// Target given in terms of grid row, column
 	auto update_path_for_robot = [&](const std::string& robot, std::pair<int, int> target) {
+		//std::cout << "update_path_for_robot " << target.first << " , " << target.second << "\n";
 		auto get_pos = robots.position(robot);
 		if (!get_pos)
 			return;
@@ -189,6 +191,7 @@ int main()
 		{
 			// ... apply this new path to the given robot.
 			robots.set_path(robot, coords);
+		//	std::cout << "update_path_for_robot\n";
 		}
 		else
 		{
@@ -282,7 +285,7 @@ int main()
 	robots.enable_callback(NTNU::application::SLAM::robots_events::ROBOT_IDLE, [&](std::any context) {
 		try {
 			auto [id, x, y] = std::any_cast<std::tuple<std::string, int16_t, int16_t>>(context);
-			//std::cout << "Robot [" << id << "] idle at {" << x << ", " << y << "}\n";
+			std::cout << "Robot [" << id << "] idle at {" << x << ", " << y << "}\n";
 
 		}
 		catch (const std::bad_any_cast& e) { std::cout << e.what(); }
@@ -292,8 +295,7 @@ int main()
 		try
 		{
 			auto[id, x, y] = std::any_cast<std::tuple<std::string, int16_t, int16_t>>(context);
-			std::cout << "Robot [" << id << "] moved to {" << x << ", " << y << "}\n";
-			//std::cout << "Current position { " << msg_x << " , " << msg_y << " }\n";	//	testing
+			//std::cout << "Robot [" << id << "] moved to {" << x << ", " << y << "}\n";
 		}
 		catch (const std::bad_any_cast& e) { std::cout << e.what(); }
 	});
@@ -318,7 +320,7 @@ int main()
 				auto target = NTNU::application::SLAM::utility::coord_to_row_col(grid, tx, ty);
 				if (target) {
 					update_path_for_robot(id, target.value());
-					std::cout << "Updated path for robot " << id << " : "  << "\n";
+				//	std::cout << "Found obstacle, updated path for robot " << id << " : "  << "\n"; // TEST
 				}
 			}
 		}
@@ -416,18 +418,18 @@ int main()
 					raw.push_back(byte);
 				}
 				auto iterator = raw.begin();
-				//std::cout << "pX: " << NTNU::application::SLAM::utility::from_byte_ptr(&(*iterator));
+				std::cout << "pX: " << NTNU::application::SLAM::utility::from_byte_ptr(&(*iterator));
 				iterator += 2;
-				//std::cout << " pY: " << NTNU::application::SLAM::utility::from_byte_ptr(&(*iterator));
+				std::cout << " pY: " << NTNU::application::SLAM::utility::from_byte_ptr(&(*iterator));
 				iterator += 2;
 
 				for (iterator; iterator < raw.end();)
 				{
-				//	std::cout << "oX: " << NTNU::application::SLAM::utility::from_byte_ptr(&(*iterator));
+					std::cout << "oX: " << NTNU::application::SLAM::utility::from_byte_ptr(&(*iterator));
 					iterator += 2;
-				//	std::cout << " oY: " << NTNU::application::SLAM::utility::from_byte_ptr(&(*iterator));
+					std::cout << " oY: " << NTNU::application::SLAM::utility::from_byte_ptr(&(*iterator));
 					iterator += 2;
-				//	std::cout << std::endl;
+					std::cout << std::endl;
 				}
 				
 				// FOR TESTING PURPOSE //				
@@ -563,7 +565,7 @@ int main()
 					auto[nx, ny] = next_point.value();
 					NTNU::application::SLAM::message::position pos{ nx, ny };
 					msg.set_payload(pos);
-				//	std::cout << "Next point, X: " << pos.x << " Y: " << pos.y << std::endl;		//testing purpose
+					//std::cout << "Next point, X: " << pos.x << " Y: " << pos.y << std::endl;		//testing purpose
 					auto result = mqtt_to_publish_ch.push(msg);
 					if (result != boost::fibers::channel_op_status::success) {
 						std::cerr << "Robot push msg onto publish queue did not succeed!\n";
@@ -619,27 +621,36 @@ int main()
 			sleep_until(next_time);
 		}
 		*/
+		NTNU::application::SLAM::robot_navigation_config config = { MQTT_ADDRESS, "v1/robot/Endre/adv" };
+		NTNU::application::SLAM::robot_navigation robot_nav{ config };
 		for (;;)
 		{
+		
 			auto all_robots = robots.get_all_robot_ids();
 			for (const auto& robot : all_robots)
 			{
 				std::optional<ipair> next_point = std::nullopt;
 				//NTNU::application::SLAM::message::robot_pos&;
 				//NTNU::application::SLAM::robots::getPosition;
-				static int poss[2] = { 0 , 0 };
 				NTNU::application::SLAM::message::position pos;
-				
-				//std::cout << pos.robot_pos() << "\n";
-				if (robot_navigation.get_robot_nav_enable())
-				{
-					next_point = robot_navigation.get_manual_target();
-					robot_navigation.something();
-					//std::cout << "next point: "  << "\n";
-				}
-				else
-					next_point = robots.get_next_point(robot);
 
+				//std::cout << pos.robot_pos() << "\n";
+				if (navigation_panel.get_robot_nav_enable())
+				{
+					robot_nav.run();
+					update_path_for_robot(robot, { 100 , 100 });
+					//next_point = { 100, 100 };
+
+				}
+				else {
+					robots.enable_callback(NTNU::application::SLAM::robots_events::ROBOT_IDLE, [&](std::any context){
+						std::cout << "robot idle, get next point\n";
+
+						next_point = robots.get_next_point(robot);
+					});
+					
+
+				}
 				if (!next_point)
 					continue;
 

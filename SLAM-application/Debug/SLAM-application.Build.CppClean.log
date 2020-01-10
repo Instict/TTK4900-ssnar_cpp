@@ -1,8 +1,5 @@
 c:\temp\ssnar_cpp\slam-application\debug\vc141.pdb
 c:\temp\ssnar_cpp\slam-application\debug\vc141.idb
-c:\temp\ssnar_cpp\slam-application\debug\robot.obj
-c:\temp\ssnar_cpp\slam-application\debug\path.obj
-c:\temp\ssnar_cpp\slam-application\debug\panel_base.obj
 c:\temp\ssnar_cpp\slam-application\debug\panel.obj
 c:\temp\ssnar_cpp\slam-application\debug\obstructable_grid.obj
 c:\temp\ssnar_cpp\slam-application\debug\mqtt_utility.obj
@@ -18,6 +15,9 @@ c:\temp\ssnar_cpp\slam-application\debug\clicks.obj
 c:\temp\ssnar_cpp\slam-application\debug\circle_grid.obj
 c:\temp\ssnar_cpp\slam-application\debug\circles.obj
 c:\temp\ssnar_cpp\slam-application\debug\animated_line.obj
+c:\temp\ssnar_cpp\slam-application\debug\simulation_panel.obj
+c:\temp\ssnar_cpp\slam-application\debug\robot_navigation.obj
+c:\temp\ssnar_cpp\slam-application\debug\navigation_panel.obj
 c:\temp\ssnar_cpp\slam-application\debug\main_panel.obj
 c:\temp\ssnar_cpp\slam-application\debug\main.obj
 c:\temp\ssnar_cpp\slam-application\debug\target_panel.obj
@@ -27,8 +27,9 @@ c:\temp\ssnar_cpp\slam-application\debug\slam_message.obj
 c:\temp\ssnar_cpp\slam-application\debug\slam_grid.obj
 c:\temp\ssnar_cpp\slam-application\debug\robot_simulation.obj
 c:\temp\ssnar_cpp\slam-application\debug\robots.obj
-c:\temp\ssnar_cpp\slam-application\debug\simulation_panel.obj
-c:\temp\ssnar_cpp\slam-application\debug\robot_navigation.obj
+c:\temp\ssnar_cpp\slam-application\debug\robot.obj
+c:\temp\ssnar_cpp\slam-application\debug\path.obj
+c:\temp\ssnar_cpp\slam-application\debug\panel_base.obj
 c:\temp\ssnar_cpp\debug\slam-application.exe
 c:\temp\ssnar_cpp\debug\slam-application.ilk
 c:\temp\ssnar_cpp\debug\slam-application.pdb

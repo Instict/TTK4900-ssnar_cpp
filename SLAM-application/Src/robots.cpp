@@ -10,8 +10,9 @@
 namespace NTNU::application::SLAM
 {
 
-robots::robots() :
-	robots_navigate_(false)
+	robots::robots() :
+		robots_navigate_(false),
+		counter(0)
 {
 }
 
@@ -31,9 +32,14 @@ void robots::feed_message(const message & msg)
 		call_callback(robots_events::ROBOT_MOVED, context);
 	} // TESTING
 	if(msg_x == bot_x && msg_y == bot_y){
-		robot->get()->setPosition(sf::Vector2f(msg_x, msg_y));
-		auto context = std::make_tuple(robot_id, msg_x, msg_y);
-		call_callback(robots_events::ROBOT_IDLE, context);
+		counter++;
+		if (counter > 50) {
+			robot->get()->setPosition(sf::Vector2f(msg_x, msg_y));
+			auto context = std::make_tuple(robot_id, msg_x, msg_y);
+			call_callback(robots_events::ROBOT_IDLE, context);
+			counter = 0;
+		}
+
 		//auto next_time = system_clock::now() + milliseconds(2000);
 		//sleep_until(next_time);
 	} // TESTING

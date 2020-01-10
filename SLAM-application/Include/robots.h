@@ -55,6 +55,7 @@ private:
 	std::map<std::string, std::unique_ptr<robot>> robots_;
 
 	bool robots_navigate_;
+	int8_t counter;
 };
 
 }
