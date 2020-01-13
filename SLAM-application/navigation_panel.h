@@ -22,6 +22,8 @@ namespace NTNU::gui::panel {
 		void set_robot_position(int x, int y);
 		ipair get_robot_position();
 		void something();
+		void set_robot_nav_obstacle_enable(bool robot_nav_obs);
+		bool get_robot_nav_obstacle();
 
 	private:
 		ipair robot_position_;
@@ -30,6 +32,7 @@ namespace NTNU::gui::panel {
 		int x;
 		int y;
 		bool robot_nav_;
+		bool robot_nav_obs_;
 		ipair manual_target_;
 
 	};

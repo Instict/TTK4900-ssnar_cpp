@@ -42,7 +42,8 @@ public:
 	std::optional<std::pair<float, float>> position(const std::string& robot_id) const;
 
 	void update(sf::Time delta) override;
-	bool navigate() const;
+	bool navigate_obstacle() const;
+	bool robot_navigate();
 
 	void set_path(const std::string& robot_id, const std::vector<std::pair<float, float>> coords);
 
@@ -54,6 +55,7 @@ private:
 
 	std::map<std::string, std::unique_ptr<robot>> robots_;
 
+	bool robots_navigate_obstacle_;
 	bool robots_navigate_;
 	int8_t counter;
 };

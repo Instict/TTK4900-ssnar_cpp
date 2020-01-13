@@ -11,6 +11,7 @@ namespace NTNU::application::SLAM
 {
 
 	robots::robots() :
+		robots_navigate_obstacle_(false),
 		robots_navigate_(false),
 		counter(0)
 {
@@ -54,11 +55,18 @@ void robots::feed_message(const message & msg)
 	}
 
 	set_fun([&]() {
+		const ImVec2 btn_size{ 200, 0 };
 		if (robots_.size() == 0)
 			return;
 
-		ImGui::Checkbox("Navigate Around Obstacles", &robots_navigate_);
+		ImGui::Checkbox("Navigate Around Obstacles", &robots_navigate_obstacle_);
+		if (ImGui::Button("Start navigation", btn_size)) {
+			robots_navigate_ = true;
 
+		}
+		if (ImGui::Button("Stop navigation", btn_size)) {
+			robots_navigate_ = false;
+		}
 		if (ImGui::BeginTabBar("Robots Tab Bar", ImGuiTabBarFlags_None))
 		{
 			for (const auto& entry : robots_)
@@ -142,8 +150,11 @@ void robots::update(sf::Time delta)
 	}
 }
 
-bool robots::navigate() const
+bool robots::navigate_obstacle() const
 {
+	return robots_navigate_obstacle_;
+}
+bool robots::robot_navigate() {
 	return robots_navigate_;
 }
 

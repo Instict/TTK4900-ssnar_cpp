@@ -170,7 +170,8 @@ int main()
 		if (!get_pos)
 			return;
 
-		auto source = get_pos.value();
+		auto source = get_pos.value();	// robot position
+		//std::cout << "Robot in real world: " << source.first << " , " << source.second << "\n";
 		// Robot positions are given in global coordinates...
 		auto result = NTNU::application::SLAM::utility::coord_to_row_col(grid, source.first, source.second);
 		if (!result)
@@ -178,20 +179,23 @@ int main()
 
 		auto[robo_row, robo_col] = result.value();
 		source = { robo_row, robo_col };
+		//std::cout << "robot at map: " << robo_row << " , " << robo_col << "\n";
 
 		// ... paths are solved in terms of the underlying grid (which uses rows and columns)...
 		auto path = NTNU::graph::pathfinding::solve(grid.get_filtered_grid(), source, target);
+
 		if (!path)
 			return;
 
 		// ... reduce the given path to straight lines ...
 		auto rpath = NTNU::graph::pathfinding::reduce(path.value());
 		// ... and convert it back to global coordinates ...
-		if (auto coords = NTNU::application::SLAM::utility::points_to_coords(grid, rpath); robots.navigate())
+		if (auto coords = NTNU::application::SLAM::utility::points_to_coords(grid, rpath); robots.navigate_obstacle())
 		{
 			// ... apply this new path to the given robot.
 			robots.set_path(robot, coords);
-		//	std::cout << "update_path_for_robot\n";
+			
+			//std::cout << "update_path_for_robot TRUE\n";
 		}
 		else
 		{
@@ -204,7 +208,7 @@ int main()
 		sf::Vector2f pos{ static_cast<float>(e.mouseButton.x), static_cast<float>(e.mouseButton.y) };
 		pos = win.getInverseTransform().transformPoint(pos);
 
-		//std::cout << "Mouse button press: {" << pos.x << ", " << pos.y << "}" << std::endl;
+		std::cout << "Mouse button press: {" << pos.x << ", " << pos.y << "}" << std::endl;
 
 		auto grid_idx = NTNU::application::SLAM::utility::coord_to_row_col(grid, pos.x, pos.y);
 		if (grid_idx)
@@ -212,9 +216,11 @@ int main()
 			using NTNU::gui::panel::clicks_choices;
 			const auto[row, col] = grid_idx.value();
 
-			if (e.mouseButton.button == sf::Mouse::Left && clicks.left_is(clicks_choices::obstruct)
-				|| e.mouseButton.button == sf::Mouse::Right && clicks.right_is(clicks_choices::obstruct))
+			if (e.mouseButton.button == sf::Mouse::Left && clicks.left_is(clicks_choices::obstruct) || e.mouseButton.button == sf::Mouse::Right && clicks.right_is(clicks_choices::obstruct))
+			{
 				grid.obstruct(row, col);
+				std::cout << "Obstacle: " << row << " , " << col << "\n";
+			}
 
 			if (e.mouseButton.button == sf::Mouse::Left && clicks.left_is(clicks_choices::set_target)
 				|| e.mouseButton.button == sf::Mouse::Right && clicks.right_is(clicks_choices::set_target))
@@ -282,6 +288,7 @@ int main()
 		catch (const std::bad_any_cast& e) { std::cout << e.what(); }
 	});
 	// TESTING
+	/*
 	robots.enable_callback(NTNU::application::SLAM::robots_events::ROBOT_IDLE, [&](std::any context) {
 		try {
 			auto [id, x, y] = std::any_cast<std::tuple<std::string, int16_t, int16_t>>(context);
@@ -290,6 +297,7 @@ int main()
 		}
 		catch (const std::bad_any_cast& e) { std::cout << e.what(); }
 		});
+		*/
 	//TESTING
 	robots.enable_callback(NTNU::application::SLAM::robots_events::ROBOT_MOVED, [&](std::any context) {
 		try
@@ -549,8 +557,41 @@ int main()
 				{
 					next_point = target_panel.get_manual_target();
 				}
-				else
+				if (robots.robot_navigate()) 
+				{
+					uint16_t counter = 0;
+					auto get_pos = robots.position(robot);
+					if (!get_pos)
+						return;
+
+					auto source = get_pos.value();	// robot position
+					std::cout << "Robot in real world: " << source.first << " , " << source.second << "\n";
+					auto result = NTNU::application::SLAM::utility::coord_to_row_col(grid, source.first, source.second);
+					if (!result)
+						return;
+					auto [robo_row, robo_col] = result.value();
+					source = { robo_row, robo_col };
+					std::cout << "robot at map: " << robo_row << " , " << robo_col << "\n";
+
+					std::pair<int, int> target = { robo_row + 5, robo_col + 5};
+					auto next_target = robots.get_target(robot);
+					update_path_for_robot(robot, target);
+					if ((source.first && source.second) == (target.first && target.second)) {
+						counter++;
+						if(counter > 50){
+						std::cout << "IDLE \n";
+						target = { source.first + 2, source.second + 2 };
+						}
+					}
+					
 					next_point = robots.get_next_point(robot);
+				}
+				else {
+					std::cout << "outbox else\n";
+					//next_point = robots.get_next_point(robot);
+					//auto [nx, ny] = next_point.value();
+					//std::cout << "Outbox else : " << nx << " , " << ny << "\n";
+				}
 
 				if (!next_point)
 					continue;
@@ -565,7 +606,7 @@ int main()
 					auto[nx, ny] = next_point.value();
 					NTNU::application::SLAM::message::position pos{ nx, ny };
 					msg.set_payload(pos);
-					//std::cout << "Next point, X: " << pos.x << " Y: " << pos.y << std::endl;		//testing purpose
+					std::cout << "Outbox next point, X: " << pos.x << " Y: " << pos.y << std::endl;		//testing purpose
 					auto result = mqtt_to_publish_ch.push(msg);
 					if (result != boost::fibers::channel_op_status::success) {
 						std::cerr << "Robot push msg onto publish queue did not succeed!\n";
@@ -606,25 +647,14 @@ int main()
 	});
 
 
-
+	/*
 	fiber robot_navigation_f([&] {
-		/*
-		NTNU::application::SLAM::robot_navigation_config config = { MQTT_ADDRESS, "v1/robot/Endre/adv" , 3, 25 };
-		NTNU::application::SLAM::robot_navigation robot_nav{ config };
 
-		sleep_until(system_clock::now() + seconds(3));
-		for (;;) {
-			if (simulation_panel.get_robot_nav_enable())
-				robot_nav.run();
-
-			auto next_time = system_clock::now() + milliseconds(10);
-			sleep_until(next_time);
-		}
-		*/
-		NTNU::application::SLAM::robot_navigation_config config = { MQTT_ADDRESS, "v1/robot/Endre/adv" };
-		NTNU::application::SLAM::robot_navigation robot_nav{ config };
+		//NTNU::application::SLAM::robot_navigation_config config = { MQTT_ADDRESS, "v1/robot/Endre/adv" };
+		//NTNU::application::SLAM::robot_navigation robot_nav{ config };
 		for (;;)
 		{
+
 		
 			auto all_robots = robots.get_all_robot_ids();
 			for (const auto& robot : all_robots)
@@ -635,14 +665,24 @@ int main()
 				NTNU::application::SLAM::message::position pos;
 
 				//std::cout << pos.robot_pos() << "\n";
-				if (navigation_panel.get_robot_nav_enable())
+				if (robots.robot_navigate())
 				{
-					robot_nav.run();
-					update_path_for_robot(robot, { 100 , 100 });
-					//next_point = { 100, 100 };
+					std::pair<int, int> target = { 0, 0 };
+					auto next_target = robots.get_target(robot);
+					update_path_for_robot(robot, target);
+					auto get_pos = robots.position(robot);
+					if (!get_pos)
+						return;
+
+					auto source = get_pos.value();	// robot position
+					std::cout << "Robot in real world: " << source.first << " , " << source.second << "\n";
+					if ((source.first && source.second) == (target.first && target.second)) {
+						std::cout << "tralala\n";
+					}
 
 				}
 				else {
+					
 					robots.enable_callback(NTNU::application::SLAM::robots_events::ROBOT_IDLE, [&](std::any context){
 						std::cout << "robot idle, get next point\n";
 
@@ -664,7 +704,7 @@ int main()
 					auto [nx, ny] = next_point.value();
 					NTNU::application::SLAM::message::position pos{ nx, ny };
 					msg.set_payload(pos);
-					//std::cout << "Target: { " << pos.x << " , " << pos.y << " }" << std::endl;		//testing purpose
+					std::cout << "Target: { " << pos.x << " , " << pos.y << " }" << std::endl;		//testing purpose
 					auto result = mqtt_to_publish_ch.push(msg);
 					if (result != boost::fibers::channel_op_status::success) {
 						std::cerr << "Robot push msg onto publish queue did not succeed!\n";
@@ -684,11 +724,12 @@ int main()
 			sleep_until(next_time);
 		}
 		});
+		*/
 	gui_f.join();
 	mqtt_f.join();
 	robots_inbox_f.join();
 	robots_outbox_f.join();	//	TESTING
 	robot_simulation_f.join();
-	robot_navigation_f.join();
+	//robot_navigation_f.join();
 	return 0;
 }
