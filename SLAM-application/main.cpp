@@ -195,6 +195,10 @@ int main()
 			// ... apply this new path to the given robot.
 			robots.set_path(robot, coords);
 			
+			for (int i = 0; i < coords.size(); i++) {
+				std::cout << "First " << coords[i].first << " , " << coords[i].second << "\n";
+			}
+
 			//std::cout << "update_path_for_robot TRUE\n";
 		}
 		else
@@ -565,26 +569,25 @@ int main()
 						return;
 
 					auto source = get_pos.value();	// robot position
-					std::cout << "Robot in real world: " << source.first << " , " << source.second << "\n";
+					//std::cout << "Robot in real world: " << source.first << " , " << source.second << "\n";
 					auto result = NTNU::application::SLAM::utility::coord_to_row_col(grid, source.first, source.second);
 					if (!result)
 						return;
 					auto [robo_row, robo_col] = result.value();
 					source = { robo_row, robo_col };
-					std::cout << "robot at map: " << robo_row << " , " << robo_col << "\n";
+					//std::cout << "robot at map: " << robo_row << " , " << robo_col << "\n";
 
-					std::pair<int, int> target = { robo_row + 5, robo_col + 5};
-					auto next_target = robots.get_target(robot);
+					std::pair<int, int> target = { robo_row + 5, robo_col +5 };
+					next_point = robots.get_target(robot);
+					//std::cout << "target " << target.first << " , " << target.second << "\n";
 					update_path_for_robot(robot, target);
-					if ((source.first && source.second) == (target.first && target.second)) {
-						counter++;
-						if(counter > 50){
-						std::cout << "IDLE \n";
-						target = { source.first + 2, source.second + 2 };
-						}
-					}
+					robots.enable_callback(NTNU::application::SLAM::robots_events::ROBOT_IDLE, [&](std::any context) {
+						std::cout << "robot idle, get next point\n";
+						next_point = robots.get_next_point(robot);
+
+					});
 					
-					next_point = robots.get_next_point(robot);
+					
 				}
 				else {
 					std::cout << "outbox else\n";
@@ -593,8 +596,10 @@ int main()
 					//std::cout << "Outbox else : " << nx << " , " << ny << "\n";
 				}
 
-				if (!next_point)
+				if (!next_point) {
+					std::cout << "no next point TRUE\n";
 					continue;
+				}
 
 				auto result = NTNU::networking::protocols::MQTT::utility::parse_topic(robot);
 				if (result)

@@ -35,10 +35,10 @@ void robots::feed_message(const message & msg)
 	if(msg_x == bot_x && msg_y == bot_y){
 		counter++;
 		if (counter > 50) {
-			robot->get()->setPosition(sf::Vector2f(msg_x, msg_y));
-			auto context = std::make_tuple(robot_id, msg_x, msg_y);
-			call_callback(robots_events::ROBOT_IDLE, context);
-			counter = 0;
+		robot->get()->setPosition(sf::Vector2f(msg_x, msg_y));
+		auto context = std::make_tuple(robot_id, msg_x, msg_y);
+		call_callback(robots_events::ROBOT_IDLE, context);
+		counter = 0;
 		}
 
 		//auto next_time = system_clock::now() + milliseconds(2000);
