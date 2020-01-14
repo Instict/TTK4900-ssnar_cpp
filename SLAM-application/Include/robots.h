@@ -44,6 +44,7 @@ public:
 	void update(sf::Time delta) override;
 	bool navigate_obstacle() const;
 	bool robot_navigate();
+	std::vector<std::pair<float, float>> get_square_values(float x, float y);
 
 	void set_path(const std::string& robot_id, const std::vector<std::pair<float, float>> coords);
 

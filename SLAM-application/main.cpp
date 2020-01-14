@@ -62,8 +62,8 @@ int main()
 	////////////////////////////////////////////////////////////////////////////////
 
 	// Drawables
-	auto rows = 60;
-	auto cols = 80;
+	auto rows = 30;
+	auto cols = 40;
 	auto separation = 30;
 	auto alpha = 60;
 
@@ -194,19 +194,47 @@ int main()
 		{
 			// ... apply this new path to the given robot.
 			robots.set_path(robot, coords);
-			
-			for (int i = 0; i < coords.size(); i++) {
-				std::cout << "First " << coords[i].first << " , " << coords[i].second << "\n";
-			}
-
-			//std::cout << "update_path_for_robot TRUE\n";
 		}
 		else
 		{
 			robots.set_path(robot, { coords.front(), coords.back() });
 		}
 	};
+	auto something = [&](const std::string& robot, bool state) {
+		std::pair<int, int> target;
+		auto get_pos = robots.position(robot);
+		if (!get_pos)
+			return;
 
+		auto source = get_pos.value();	// robot position
+		//std::cout << "Robot in real world: " << source.first << " , " << source.second << "\n";
+		auto result = NTNU::application::SLAM::utility::coord_to_row_col(grid, source.first, source.second);
+		if (!result)
+			return;
+		auto [robo_row, robo_col] = result.value();
+		//std::cout << "robot at map: " << robo_row << " , " << robo_col << "\n";
+		if (state) {
+			auto coords = robots.get_square_values(robo_row, robo_col);
+			for (int i = 0; i < coords.size(); i++) {
+				std::cout << "coords " << coords[i].first << " , " << coords[i].second << "\n";
+				target = { coords[i].first, coords[i].second };
+				update_path_for_robot(robot, target);
+				auto next_time = system_clock::now() + milliseconds(1000);		//	just to simulate IDLE from robot
+				sleep_until(next_time);											//	should be removed with robot connected
+
+			}
+
+		}if(!state)
+		{
+			target = { robo_row, robo_col };
+			update_path_for_robot(robot, target);
+		}
+
+
+		
+
+
+	};
 	// Create "inline" lambdas for functions used in only one callback
 	win.enable_callback(sf::Event::MouseButtonPressed, [&](sf::Event e) {
 		sf::Vector2f pos{ static_cast<float>(e.mouseButton.x), static_cast<float>(e.mouseButton.y) };
@@ -291,7 +319,6 @@ int main()
 		}
 		catch (const std::bad_any_cast& e) { std::cout << e.what(); }
 	});
-	// TESTING
 	/*
 	robots.enable_callback(NTNU::application::SLAM::robots_events::ROBOT_IDLE, [&](std::any context) {
 		try {
@@ -302,7 +329,6 @@ int main()
 		catch (const std::bad_any_cast& e) { std::cout << e.what(); }
 		});
 		*/
-	//TESTING
 	robots.enable_callback(NTNU::application::SLAM::robots_events::ROBOT_MOVED, [&](std::any context) {
 		try
 		{
@@ -563,44 +589,24 @@ int main()
 				}
 				if (robots.robot_navigate()) 
 				{
-					uint16_t counter = 0;
-					auto get_pos = robots.position(robot);
-					if (!get_pos)
-						return;
+					something(robot, true);
+					next_point = robots.get_next_point(robot);
 
-					auto source = get_pos.value();	// robot position
-					//std::cout << "Robot in real world: " << source.first << " , " << source.second << "\n";
-					auto result = NTNU::application::SLAM::utility::coord_to_row_col(grid, source.first, source.second);
-					if (!result)
-						return;
-					auto [robo_row, robo_col] = result.value();
-					source = { robo_row, robo_col };
-					//std::cout << "robot at map: " << robo_row << " , " << robo_col << "\n";
-
-					std::pair<int, int> target = { robo_row + 5, robo_col +5 };
-					next_point = robots.get_target(robot);
-					//std::cout << "target " << target.first << " , " << target.second << "\n";
-					update_path_for_robot(robot, target);
-					robots.enable_callback(NTNU::application::SLAM::robots_events::ROBOT_IDLE, [&](std::any context) {
-						std::cout << "robot idle, get next point\n";
-						next_point = robots.get_next_point(robot);
-
-					});
-					
-					
 				}
+				/*
+				if(!robots.robot_navigate())
+					{
+					something(robot, false);
+				}
+				*/
 				else {
-					std::cout << "outbox else\n";
-					//next_point = robots.get_next_point(robot);
-					//auto [nx, ny] = next_point.value();
-					//std::cout << "Outbox else : " << nx << " , " << ny << "\n";
+					next_point = std::nullopt;
 				}
-
+				
 				if (!next_point) {
-					std::cout << "no next point TRUE\n";
 					continue;
 				}
-
+				
 				auto result = NTNU::networking::protocols::MQTT::utility::parse_topic(robot);
 				if (result)
 				{
@@ -652,84 +658,7 @@ int main()
 	});
 
 
-	/*
-	fiber robot_navigation_f([&] {
-
-		//NTNU::application::SLAM::robot_navigation_config config = { MQTT_ADDRESS, "v1/robot/Endre/adv" };
-		//NTNU::application::SLAM::robot_navigation robot_nav{ config };
-		for (;;)
-		{
-
-		
-			auto all_robots = robots.get_all_robot_ids();
-			for (const auto& robot : all_robots)
-			{
-				std::optional<ipair> next_point = std::nullopt;
-				//NTNU::application::SLAM::message::robot_pos&;
-				//NTNU::application::SLAM::robots::getPosition;
-				NTNU::application::SLAM::message::position pos;
-
-				//std::cout << pos.robot_pos() << "\n";
-				if (robots.robot_navigate())
-				{
-					std::pair<int, int> target = { 0, 0 };
-					auto next_target = robots.get_target(robot);
-					update_path_for_robot(robot, target);
-					auto get_pos = robots.position(robot);
-					if (!get_pos)
-						return;
-
-					auto source = get_pos.value();	// robot position
-					std::cout << "Robot in real world: " << source.first << " , " << source.second << "\n";
-					if ((source.first && source.second) == (target.first && target.second)) {
-						std::cout << "tralala\n";
-					}
-
-				}
-				else {
-					
-					robots.enable_callback(NTNU::application::SLAM::robots_events::ROBOT_IDLE, [&](std::any context){
-						std::cout << "robot idle, get next point\n";
-
-						next_point = robots.get_next_point(robot);
-					});
-					
-
-				}
-				if (!next_point)
-					continue;
-
-				auto result = NTNU::networking::protocols::MQTT::utility::parse_topic(robot);
-				if (result)
-				{
-					auto mqtt_topic = result.value();
-
-					NTNU::application::SLAM::message msg(mqtt_topic.version + "/server/" + mqtt_topic.id + "/cmd");
-
-					auto [nx, ny] = next_point.value();
-					NTNU::application::SLAM::message::position pos{ nx, ny };
-					msg.set_payload(pos);
-					std::cout << "Target: { " << pos.x << " , " << pos.y << " }" << std::endl;		//testing purpose
-					auto result = mqtt_to_publish_ch.push(msg);
-					if (result != boost::fibers::channel_op_status::success) {
-						std::cerr << "Robot push msg onto publish queue did not succeed!\n";
-					}
-				}
-				else
-				{
-					std::cout << "Bad topic parse?!" << '\n';
-				}
-
-
-				auto grace_time_over = system_clock::now() + milliseconds(100);
-				sleep_until(grace_time_over);
-			}
-
-			auto next_time = system_clock::now() + milliseconds(1000);
-			sleep_until(next_time);
-		}
-		});
-		*/
+	
 	gui_f.join();
 	mqtt_f.join();
 	robots_inbox_f.join();

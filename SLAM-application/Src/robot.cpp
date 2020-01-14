@@ -59,7 +59,7 @@ robot::robot(const std::string& name) :
 		}
 		{
 			float rotation = thor::toRadian(getRotation());
-			if (ImGui::SliderAngle("Angle", &rotation, 0.f, 359.0f))
+			if (ImGui::SliderAngle("Tower Angle", &rotation, 0.f, 359.0f))
 			{
 				setRotation(thor::toDegree(rotation));
 			}

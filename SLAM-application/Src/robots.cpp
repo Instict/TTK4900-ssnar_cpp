@@ -33,16 +33,14 @@ void robots::feed_message(const message & msg)
 		call_callback(robots_events::ROBOT_MOVED, context);
 	} // TESTING
 	if(msg_x == bot_x && msg_y == bot_y){
-		counter++;
-		if (counter > 50) {
+		//counter++;
+		//if (counter > 50) {
 		robot->get()->setPosition(sf::Vector2f(msg_x, msg_y));
 		auto context = std::make_tuple(robot_id, msg_x, msg_y);
 		call_callback(robots_events::ROBOT_IDLE, context);
-		counter = 0;
-		}
+		//counter = 0;
+		//}
 
-		//auto next_time = system_clock::now() + milliseconds(2000);
-		//sleep_until(next_time);
 	} // TESTING
 
 	auto obstacles = msg.obstacles();
@@ -60,12 +58,13 @@ void robots::feed_message(const message & msg)
 			return;
 
 		ImGui::Checkbox("Navigate Around Obstacles", &robots_navigate_obstacle_);
-		if (ImGui::Button("Start navigation", btn_size)) {
+		if (ImGui::Button("Start navigation in a square", btn_size)) {
 			robots_navigate_ = true;
 
 		}
 		if (ImGui::Button("Stop navigation", btn_size)) {
 			robots_navigate_ = false;
+			
 		}
 		if (ImGui::BeginTabBar("Robots Tab Bar", ImGuiTabBarFlags_None))
 		{
@@ -199,5 +198,12 @@ const std::unique_ptr<robot>* robots::get_robot(const std::string& robot_id) con
 
 	return nullptr;
 }
-
+std::vector<std::pair<float, float>> robots::get_square_values(float x, float y) {
+	std::vector<std::pair<float, float>> coords;
+	coords.emplace_back(x + 10, y);
+	coords.emplace_back(x + 10, y + 10);
+	coords.emplace_back(x, y + 10);
+	coords.emplace_back(x, y);
+	return coords;
+}
 }

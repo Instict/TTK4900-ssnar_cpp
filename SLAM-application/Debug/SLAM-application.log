@@ -1,19 +1,20 @@
 ﻿  main.cpp
 c:\temp\ssnar_cpp\slam-application\main.cpp(157): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
-c:\temp\ssnar_cpp\slam-application\main.cpp(198): warning C4018: '<': signed/unsigned mismatch
-c:\temp\ssnar_cpp\slam-application\main.cpp(265): warning C4244: '+=': conversion from 'double' to 'T', possible loss of data
+c:\temp\ssnar_cpp\slam-application\main.cpp(217): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\temp\ssnar_cpp\slam-application\main.cpp(218): warning C4018: '<': signed/unsigned mismatch
+c:\temp\ssnar_cpp\slam-application\main.cpp(293): warning C4244: '+=': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-c:\temp\ssnar_cpp\slam-application\main.cpp(266): warning C4244: '+=': conversion from 'double' to 'T', possible loss of data
+c:\temp\ssnar_cpp\slam-application\main.cpp(294): warning C4244: '+=': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-c:\temp\ssnar_cpp\slam-application\main.cpp(284): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
-c:\temp\ssnar_cpp\slam-application\main.cpp(332): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\temp\ssnar_cpp\slam-application\main.cpp(612): warning C4838: conversion from 'int' to 'int16_t' requires a narrowing conversion
+c:\temp\ssnar_cpp\slam-application\main.cpp(312): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+c:\temp\ssnar_cpp\slam-application\main.cpp(358): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\temp\ssnar_cpp\slam-application\main.cpp(618): warning C4838: conversion from 'int' to 'int16_t' requires a narrowing conversion
 c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.16.27023\include\utility(172): warning C4244: 'initializing': conversion from 'int' to '_Ty1', possible loss of data
           with
           [
@@ -61,6 +62,41 @@ c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.1
           with
           [
               _Ty2=float
+          ]
+          and
+          [
+              _Ty2=int
+          ]
+c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.16.27023\include\utility(172): warning C4244: 'initializing': conversion from '_Ty1' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=float
+          ]
+          and
+          [
+              _Ty1=int
+          ]
+  c:\temp\ssnar_cpp\slam-application\main.cpp(220): note: see reference to function template instantiation 'std::pair<int,int>::pair<_Ty1&,_Ty2&,0>(_Other1,_Other2) noexcept' being compiled
+          with
+          [
+              _Ty1=float,
+              _Ty2=float,
+              _Other1=float &,
+              _Other2=float &
+          ]
+  c:\temp\ssnar_cpp\slam-application\main.cpp(220): note: see reference to function template instantiation 'std::pair<int,int>::pair<_Ty1&,_Ty2&,0>(_Other1,_Other2) noexcept' being compiled
+          with
+          [
+              _Ty1=float,
+              _Ty2=float,
+              _Other1=float &,
+              _Other2=float &
+          ]
+  c:\temp\ssnar_cpp\slam-application\include\panel_base.h(28): note: see reference to class template instantiation 'std::optional<gui::base::fpair>' being compiled
+c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.16.27023\include\utility(173): warning C4244: 'initializing': conversion from '_Ty1' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty1=float
           ]
           and
           [
