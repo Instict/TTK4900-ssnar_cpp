@@ -1,38 +1,38 @@
 ﻿  main.cpp
-c:\temp\ssnar_cpp\slam-application\main.cpp(157): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
-c:\temp\ssnar_cpp\slam-application\main.cpp(217): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\temp\ssnar_cpp\slam-application\main.cpp(218): warning C4018: '<': signed/unsigned mismatch
-c:\temp\ssnar_cpp\slam-application\main.cpp(293): warning C4244: '+=': conversion from 'double' to 'T', possible loss of data
+c:\temp\ssnar_cpp\slam-application\main.cpp(154): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+c:\temp\ssnar_cpp\slam-application\main.cpp(214): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\temp\ssnar_cpp\slam-application\main.cpp(215): warning C4018: '<': signed/unsigned mismatch
+c:\temp\ssnar_cpp\slam-application\main.cpp(285): warning C4244: '+=': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-c:\temp\ssnar_cpp\slam-application\main.cpp(294): warning C4244: '+=': conversion from 'double' to 'T', possible loss of data
+c:\temp\ssnar_cpp\slam-application\main.cpp(286): warning C4244: '+=': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-c:\temp\ssnar_cpp\slam-application\main.cpp(312): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
-c:\temp\ssnar_cpp\slam-application\main.cpp(358): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\temp\ssnar_cpp\slam-application\main.cpp(618): warning C4838: conversion from 'int' to 'int16_t' requires a narrowing conversion
+c:\temp\ssnar_cpp\slam-application\main.cpp(304): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+c:\temp\ssnar_cpp\slam-application\main.cpp(350): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\temp\ssnar_cpp\slam-application\main.cpp(607): warning C4838: conversion from 'int' to 'int16_t' requires a narrowing conversion
 c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.16.27023\include\utility(172): warning C4244: 'initializing': conversion from 'int' to '_Ty1', possible loss of data
           with
           [
               _Ty1=float
           ]
-  c:\temp\ssnar_cpp\slam-application\main.cpp(181): note: see reference to function template instantiation 'std::pair<float,float>::pair<int&,int&,0>(_Other1,_Other2) noexcept' being compiled
+  c:\temp\ssnar_cpp\slam-application\main.cpp(178): note: see reference to function template instantiation 'std::pair<float,float>::pair<int&,int&,0>(_Other1,_Other2) noexcept' being compiled
           with
           [
               _Other1=int &,
               _Other2=int &
           ]
-  c:\temp\ssnar_cpp\slam-application\main.cpp(181): note: see reference to function template instantiation 'std::pair<float,float>::pair<int&,int&,0>(_Other1,_Other2) noexcept' being compiled
+  c:\temp\ssnar_cpp\slam-application\main.cpp(178): note: see reference to function template instantiation 'std::pair<float,float>::pair<int&,int&,0>(_Other1,_Other2) noexcept' being compiled
           with
           [
               _Other1=int &,
               _Other2=int &
           ]
-  c:\temp\ssnar_cpp\slam-application\main.cpp(157): note: see reference to class template instantiation 'std::optional<std::pair<int,int>>' being compiled
+  c:\temp\ssnar_cpp\slam-application\main.cpp(154): note: see reference to class template instantiation 'std::optional<std::pair<int,int>>' being compiled
   c:\temp\vcpkg\installed\x86-windows\include\boost\bind\placeholders.hpp(54): note: see reference to class template instantiation 'boost::arg<9>' being compiled
   c:\temp\vcpkg\installed\x86-windows\include\boost\bind\placeholders.hpp(53): note: see reference to class template instantiation 'boost::arg<8>' being compiled
   c:\temp\vcpkg\installed\x86-windows\include\boost\bind\placeholders.hpp(52): note: see reference to class template instantiation 'boost::arg<7>' being compiled
@@ -56,8 +56,8 @@ c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.1
           [
               _Ty1=int
           ]
-  c:\temp\ssnar_cpp\slam-application\main.cpp(185): note: see reference to function template instantiation 'std::pair<int,int>::pair<float,float,0>(const std::pair<float,float> &) noexcept' being compiled
-  c:\temp\ssnar_cpp\slam-application\main.cpp(185): note: see reference to function template instantiation 'std::pair<int,int>::pair<float,float,0>(const std::pair<float,float> &) noexcept' being compiled
+  c:\temp\ssnar_cpp\slam-application\main.cpp(182): note: see reference to function template instantiation 'std::pair<int,int>::pair<float,float,0>(const std::pair<float,float> &) noexcept' being compiled
+  c:\temp\ssnar_cpp\slam-application\main.cpp(182): note: see reference to function template instantiation 'std::pair<int,int>::pair<float,float,0>(const std::pair<float,float> &) noexcept' being compiled
 c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.16.27023\include\utility(208): warning C4244: 'initializing': conversion from 'const _Ty2' to '_Ty2', possible loss of data
           with
           [
@@ -76,7 +76,7 @@ c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.1
           [
               _Ty1=int
           ]
-  c:\temp\ssnar_cpp\slam-application\main.cpp(220): note: see reference to function template instantiation 'std::pair<int,int>::pair<_Ty1&,_Ty2&,0>(_Other1,_Other2) noexcept' being compiled
+  c:\temp\ssnar_cpp\slam-application\main.cpp(217): note: see reference to function template instantiation 'std::pair<int,int>::pair<_Ty1&,_Ty2&,0>(_Other1,_Other2) noexcept' being compiled
           with
           [
               _Ty1=float,
@@ -84,7 +84,7 @@ c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.1
               _Other1=float &,
               _Other2=float &
           ]
-  c:\temp\ssnar_cpp\slam-application\main.cpp(220): note: see reference to function template instantiation 'std::pair<int,int>::pair<_Ty1&,_Ty2&,0>(_Other1,_Other2) noexcept' being compiled
+  c:\temp\ssnar_cpp\slam-application\main.cpp(217): note: see reference to function template instantiation 'std::pair<int,int>::pair<_Ty1&,_Ty2&,0>(_Other1,_Other2) noexcept' being compiled
           with
           [
               _Ty1=float,

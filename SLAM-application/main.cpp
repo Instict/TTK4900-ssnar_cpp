@@ -19,7 +19,6 @@
 #include "control_panel.h"
 #include "target_panel.h"
 #include "simulation_panel.h"
-#include "navigation_panel.h"
 
 // C++ standard lib
 #include <vector>		// std::vector
@@ -79,7 +78,6 @@ int main()
 	NTNU::gui::panel::clicks clicks;
 	NTNU::gui::panel::target_panel target_panel;
 	NTNU::gui::panel::simulation_panel simulation_panel;
-	NTNU::gui::panel::navigation_panel navigation_panel;
 
 	////////////////////////////////////////////////////////////////////////////////
 	// GUI: Create window, add children
@@ -125,7 +123,6 @@ int main()
 	ctrl_panel.embed_panel(&target_panel, "Manual Drive");
 	ctrl_panel.embed_panel(&grid, "Grid");
 	ctrl_panel.embed_panel(&simulation_panel, "Robot Simulation");
-	ctrl_panel.embed_panel(&navigation_panel, "Navigation Panel");
 
 
 	win.add_panel(&ctrl_panel);
@@ -179,7 +176,7 @@ int main()
 
 		auto[robo_row, robo_col] = result.value();
 		source = { robo_row, robo_col };
-		//std::cout << "robot at map: " << robo_row << " , " << robo_col << "\n";
+		//std::cout << "Robot at map: " << robo_row << " , " << robo_col << "\n";
 
 		// ... paths are solved in terms of the underlying grid (which uses rows and columns)...
 		auto path = NTNU::graph::pathfinding::solve(grid.get_filtered_grid(), source, target);
@@ -200,7 +197,7 @@ int main()
 			robots.set_path(robot, { coords.front(), coords.back() });
 		}
 	};
-	auto something = [&](const std::string& robot, bool state) {
+	auto navigate_square = [&](const std::string& robot, bool state) {
 		std::pair<int, int> target;
 		auto get_pos = robots.position(robot);
 		if (!get_pos)
@@ -212,35 +209,30 @@ int main()
 		if (!result)
 			return;
 		auto [robo_row, robo_col] = result.value();
-		//std::cout << "robot at map: " << robo_row << " , " << robo_col << "\n";
+		//std::cout << "Robot at map: " << robo_row << " , " << robo_col << "\n";
 		if (state) {
 			auto coords = robots.get_square_values(robo_row, robo_col);
 			for (int i = 0; i < coords.size(); i++) {
-				std::cout << "coords " << coords[i].first << " , " << coords[i].second << "\n";
+				//std::cout << "coords " << coords[i].first << " , " << coords[i].second << "\n";
 				target = { coords[i].first, coords[i].second };
 				update_path_for_robot(robot, target);
-				auto next_time = system_clock::now() + milliseconds(1000);		//	just to simulate IDLE from robot
-				sleep_until(next_time);											//	should be removed with robot connected
+				auto next_time = system_clock::now() + milliseconds(1000);	//	just to simulate IDLE from robot, should be replaced with
+				sleep_until(next_time);										//	 ROBOT_IDLE callback when a real robot is connected
 
 			}
-
 		}if(!state)
 		{
 			target = { robo_row, robo_col };
 			update_path_for_robot(robot, target);
 		}
-
-
-		
-
-
+			   
 	};
 	// Create "inline" lambdas for functions used in only one callback
 	win.enable_callback(sf::Event::MouseButtonPressed, [&](sf::Event e) {
 		sf::Vector2f pos{ static_cast<float>(e.mouseButton.x), static_cast<float>(e.mouseButton.y) };
 		pos = win.getInverseTransform().transformPoint(pos);
 
-		std::cout << "Mouse button press: {" << pos.x << ", " << pos.y << "}" << std::endl;
+		//std::cout << "Mouse button press: {" << pos.x << ", " << pos.y << "}" << std::endl;
 
 		auto grid_idx = NTNU::application::SLAM::utility::coord_to_row_col(grid, pos.x, pos.y);
 		if (grid_idx)
@@ -319,16 +311,16 @@ int main()
 		}
 		catch (const std::bad_any_cast& e) { std::cout << e.what(); }
 	});
-	/*
+	
 	robots.enable_callback(NTNU::application::SLAM::robots_events::ROBOT_IDLE, [&](std::any context) {
 		try {
 			auto [id, x, y] = std::any_cast<std::tuple<std::string, int16_t, int16_t>>(context);
-			std::cout << "Robot [" << id << "] idle at {" << x << ", " << y << "}\n";
+			//std::cout << "Robot [" << id << "] idle at {" << x << ", " << y << "}\n";
 
 		}
 		catch (const std::bad_any_cast& e) { std::cout << e.what(); }
 		});
-		*/
+		
 	robots.enable_callback(NTNU::application::SLAM::robots_events::ROBOT_MOVED, [&](std::any context) {
 		try
 		{
@@ -447,8 +439,9 @@ int main()
 				
 				//std::cout << "Subscribe: " << topic << " | " << msg << '\n';	
 				
-				// FOR TESTING PURPOSE //
-				/*
+				/*				
+				// Just to translate and display mqtt message, can be removed //
+
 				std::vector<std::byte> raw;
 
 				for (const auto& ch : msg) {
@@ -470,7 +463,7 @@ int main()
 					std::cout << std::endl;
 				}
 				
-				// FOR TESTING PURPOSE //				
+				// Just to translate and display mqtt message, can be removed //				
 				*/
 				if (slam_ch.try_push(slam_msg) !=
 					boost::fibers::channel_op_status::success)
@@ -589,17 +582,13 @@ int main()
 				}
 				if (robots.robot_navigate()) 
 				{
-					something(robot, true);
+					navigate_square(robot, true);
 					next_point = robots.get_next_point(robot);
 
 				}
-				/*
-				if(!robots.robot_navigate())
-					{
-					something(robot, false);
-				}
-				*/
+
 				else {
+					navigate_square(robot, false);
 					next_point = std::nullopt;
 				}
 				
@@ -617,7 +606,7 @@ int main()
 					auto[nx, ny] = next_point.value();
 					NTNU::application::SLAM::message::position pos{ nx, ny };
 					msg.set_payload(pos);
-					std::cout << "Outbox next point, X: " << pos.x << " Y: " << pos.y << std::endl;		//testing purpose
+					//std::cout << "Outbox next point, X: " << pos.x << " Y: " << pos.y << std::endl;		
 					auto result = mqtt_to_publish_ch.push(msg);
 					if (result != boost::fibers::channel_op_status::success) {
 						std::cerr << "Robot push msg onto publish queue did not succeed!\n";
@@ -649,7 +638,7 @@ int main()
 		sleep_until(system_clock::now() + seconds(3));
 		for (;;)
 		{
-			if (simulation_panel.get_robot_sim_enable())	//	TESTING
+			if (simulation_panel.get_robot_sim_enable())	
 				robot_sim.run();
 
 			auto next_time = system_clock::now() + milliseconds(10);
@@ -662,8 +651,7 @@ int main()
 	gui_f.join();
 	mqtt_f.join();
 	robots_inbox_f.join();
-	robots_outbox_f.join();	//	TESTING
+	robots_outbox_f.join();	
 	robot_simulation_f.join();
-	//robot_navigation_f.join();
 	return 0;
 }

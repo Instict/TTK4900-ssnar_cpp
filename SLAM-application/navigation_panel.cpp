@@ -58,7 +58,6 @@ namespace NTNU::gui::panel {
 		x_ = x;
 		y_ = y;
 		robot_position_ = { x_, y_ };
-		std::cout << "does this shit even work? { " << x_ << ": " << y_ << " }\n";
 	}
 	ipair navigation_panel::get_robot_position() {
 		return robot_position_;
