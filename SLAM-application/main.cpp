@@ -12,7 +12,6 @@
 #include "path.h"
 #include "grid_path_solver.h"
 #include "robots.h"
-#include "robot_navigation.h"
 
 //	Panels
 #include "robot_simulation.h"

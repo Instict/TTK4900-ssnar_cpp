@@ -22,9 +22,11 @@ void robot_simulation::run()
 
 	x_ += get_random(-crawl_speed_, crawl_speed_);
 	y_ += get_random(-crawl_speed_, crawl_speed_);
-	
+
+
 	obs_x_ += get_random(-obstacle_spread_, obstacle_spread_);
 	obs_y_ += get_random(-obstacle_spread_, obstacle_spread_);
+
 	
 
 	NTNU::application::SLAM::message msg(topic_);
