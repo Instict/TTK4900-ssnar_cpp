@@ -102,7 +102,6 @@ c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.1
           [
               _Ty2=int
           ]
-  simulation_panel.cpp
   animated_line.cpp
 c:\temp\ssnar_cpp\slam-application\src\animated_line.cpp(83): warning C4018: '<': signed/unsigned mismatch
   circles.cpp
@@ -266,8 +265,6 @@ c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.1
           [
               _Ty2=int
           ]
-  Generating Code...
-  Compiling...
   robots.cpp
 c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.16.27023\include\utility(239): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
           with
@@ -315,15 +312,18 @@ c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.1
           [
               _Ty2=int
           ]
+  Generating Code...
+  Compiling...
   robot_simulation.cpp
 c:\temp\ssnar_cpp\slam-application\src\robot_simulation.cpp(33): warning C4838: conversion from 'int' to 'int16_t' requires a narrowing conversion
 c:\temp\ssnar_cpp\slam-application\src\robot_simulation.cpp(34): warning C4838: conversion from 'int' to 'int16_t' requires a narrowing conversion
+  simulation_panel.cpp
   slam_grid.cpp
   slam_message.cpp
   slam_utility.cpp
 c:\temp\ssnar_cpp\slam-application\src\slam_utility.cpp(51): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
 c:\temp\ssnar_cpp\slam-application\src\slam_utility.cpp(52): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-  window.cpp
   target_panel.cpp
+  window.cpp
   Generating Code...
   SLAM-application.vcxproj -> C:\temp\ssnar_cpp\Debug\SLAM-application.exe

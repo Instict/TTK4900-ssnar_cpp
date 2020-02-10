@@ -42,18 +42,17 @@
     <ClInclude Include="Include\robot.h" />
     <ClInclude Include="Include\robots.h" />
     <ClInclude Include="Include\robot_simulation.h" />
+    <ClInclude Include="Include\simulation_panel.h" />
     <ClInclude Include="Include\slam_grid.h" />
     <ClInclude Include="Include\slam_message.h" />
     <ClInclude Include="Include\slam_utility.h" />
+    <ClInclude Include="Include\target_panel.h" />
     <ClInclude Include="Include\updatable.h" />
     <ClInclude Include="Include\vertex_hash.h" />
     <ClInclude Include="Include\window.h" />
-    <ClInclude Include="simulation_panel.h" />
-    <ClInclude Include="target_panel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="simulation_panel.cpp" />
     <ClCompile Include="Src\animated_line.cpp" />
     <ClCompile Include="Src\circles.cpp" />
     <ClCompile Include="Src\circle_grid.cpp" />
@@ -74,11 +73,12 @@
     <ClCompile Include="Src\robot.cpp" />
     <ClCompile Include="Src\robots.cpp" />
     <ClCompile Include="Src\robot_simulation.cpp" />
+    <ClCompile Include="Src\simulation_panel.cpp" />
     <ClCompile Include="Src\slam_grid.cpp" />
     <ClCompile Include="Src\slam_message.cpp" />
     <ClCompile Include="Src\slam_utility.cpp" />
+    <ClCompile Include="Src\target_panel.cpp" />
     <ClCompile Include="Src\window.cpp" />
-    <ClCompile Include="target_panel.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

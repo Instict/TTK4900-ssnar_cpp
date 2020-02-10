@@ -1,0 +1,330 @@
+﻿  main.cpp
+c:\temp\ssnar_cpp\slam-application\main.cpp(153): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+c:\temp\ssnar_cpp\slam-application\main.cpp(213): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\temp\ssnar_cpp\slam-application\main.cpp(214): warning C4018: '<': signed/unsigned mismatch
+c:\temp\ssnar_cpp\slam-application\main.cpp(284): warning C4244: '+=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\temp\ssnar_cpp\slam-application\main.cpp(285): warning C4244: '+=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\temp\ssnar_cpp\slam-application\main.cpp(303): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+c:\temp\ssnar_cpp\slam-application\main.cpp(349): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\temp\ssnar_cpp\slam-application\main.cpp(606): warning C4838: conversion from 'int' to 'int16_t' requires a narrowing conversion
+c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.16.27023\include\utility(172): warning C4244: 'initializing': conversion from 'int' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=float
+          ]
+  c:\temp\ssnar_cpp\slam-application\main.cpp(177): note: see reference to function template instantiation 'std::pair<float,float>::pair<int&,int&,0>(_Other1,_Other2) noexcept' being compiled
+          with
+          [
+              _Other1=int &,
+              _Other2=int &
+          ]
+  c:\temp\ssnar_cpp\slam-application\main.cpp(177): note: see reference to function template instantiation 'std::pair<float,float>::pair<int&,int&,0>(_Other1,_Other2) noexcept' being compiled
+          with
+          [
+              _Other1=int &,
+              _Other2=int &
+          ]
+  c:\temp\ssnar_cpp\slam-application\main.cpp(153): note: see reference to class template instantiation 'std::optional<std::pair<int,int>>' being compiled
+  c:\temp\vcpkg\installed\x86-windows\include\boost\bind\placeholders.hpp(54): note: see reference to class template instantiation 'boost::arg<9>' being compiled
+  c:\temp\vcpkg\installed\x86-windows\include\boost\bind\placeholders.hpp(53): note: see reference to class template instantiation 'boost::arg<8>' being compiled
+  c:\temp\vcpkg\installed\x86-windows\include\boost\bind\placeholders.hpp(52): note: see reference to class template instantiation 'boost::arg<7>' being compiled
+  c:\temp\vcpkg\installed\x86-windows\include\boost\bind\placeholders.hpp(51): note: see reference to class template instantiation 'boost::arg<6>' being compiled
+  c:\temp\vcpkg\installed\x86-windows\include\boost\bind\placeholders.hpp(50): note: see reference to class template instantiation 'boost::arg<5>' being compiled
+  c:\temp\vcpkg\installed\x86-windows\include\boost\bind\placeholders.hpp(49): note: see reference to class template instantiation 'boost::arg<4>' being compiled
+  c:\temp\vcpkg\installed\x86-windows\include\boost\bind\placeholders.hpp(48): note: see reference to class template instantiation 'boost::arg<3>' being compiled
+  c:\temp\vcpkg\installed\x86-windows\include\boost\bind\placeholders.hpp(47): note: see reference to class template instantiation 'boost::arg<2>' being compiled
+  c:\temp\vcpkg\installed\x86-windows\include\boost\bind\placeholders.hpp(46): note: see reference to class template instantiation 'boost::arg<1>' being compiled
+c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.16.27023\include\utility(173): warning C4244: 'initializing': conversion from 'int' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty2=float
+          ]
+c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.16.27023\include\utility(208): warning C4244: 'initializing': conversion from 'const _Ty1' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=float
+          ]
+          and
+          [
+              _Ty1=int
+          ]
+  c:\temp\ssnar_cpp\slam-application\main.cpp(181): note: see reference to function template instantiation 'std::pair<int,int>::pair<float,float,0>(const std::pair<float,float> &) noexcept' being compiled
+  c:\temp\ssnar_cpp\slam-application\main.cpp(181): note: see reference to function template instantiation 'std::pair<int,int>::pair<float,float,0>(const std::pair<float,float> &) noexcept' being compiled
+c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.16.27023\include\utility(208): warning C4244: 'initializing': conversion from 'const _Ty2' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty2=float
+          ]
+          and
+          [
+              _Ty2=int
+          ]
+c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.16.27023\include\utility(172): warning C4244: 'initializing': conversion from '_Ty1' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=float
+          ]
+          and
+          [
+              _Ty1=int
+          ]
+  c:\temp\ssnar_cpp\slam-application\main.cpp(216): note: see reference to function template instantiation 'std::pair<int,int>::pair<_Ty1&,_Ty2&,0>(_Other1,_Other2) noexcept' being compiled
+          with
+          [
+              _Ty1=float,
+              _Ty2=float,
+              _Other1=float &,
+              _Other2=float &
+          ]
+  c:\temp\ssnar_cpp\slam-application\main.cpp(216): note: see reference to function template instantiation 'std::pair<int,int>::pair<_Ty1&,_Ty2&,0>(_Other1,_Other2) noexcept' being compiled
+          with
+          [
+              _Ty1=float,
+              _Ty2=float,
+              _Other1=float &,
+              _Other2=float &
+          ]
+  c:\temp\ssnar_cpp\slam-application\include\panel_base.h(28): note: see reference to class template instantiation 'std::optional<gui::base::fpair>' being compiled
+c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.16.27023\include\utility(173): warning C4244: 'initializing': conversion from '_Ty1' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty1=float
+          ]
+          and
+          [
+              _Ty2=int
+          ]
+  animated_line.cpp
+c:\temp\ssnar_cpp\slam-application\src\animated_line.cpp(83): warning C4018: '<': signed/unsigned mismatch
+  circles.cpp
+c:\temp\ssnar_cpp\slam-application\src\circles.cpp(18): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\temp\ssnar_cpp\slam-application\src\circles.cpp(26): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\temp\ssnar_cpp\slam-application\src\circles.cpp(30): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\temp\ssnar_cpp\slam-application\src\circles.cpp(56): warning C4018: '<': signed/unsigned mismatch
+  circle_grid.cpp
+c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.16.27023\include\utility(172): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+  c:\temp\ssnar_cpp\slam-application\src\circle_grid.cpp(44): note: see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Other1=int,
+              _Other2=int
+          ]
+  c:\temp\ssnar_cpp\slam-application\src\circle_grid.cpp(44): note: see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Other1=int,
+              _Other2=int
+          ]
+c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.16.27023\include\utility(173): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+  clicks.cpp
+  control_panel.cpp
+  grid.cpp
+  grid_path_solver.cpp
+c:\temp\ssnar_cpp\slam-application\src\grid_path_solver.cpp(61): warning C4838: conversion from '_Ty1' to 'T' requires a narrowing conversion
+          with
+          [
+              _Ty1=int
+          ]
+          and
+          [
+              T=size_t
+          ]
+c:\temp\ssnar_cpp\slam-application\src\grid_path_solver.cpp(61): warning C4838: conversion from '_Ty2' to 'T' requires a narrowing conversion
+          with
+          [
+              _Ty2=int
+          ]
+          and
+          [
+              T=size_t
+          ]
+c:\temp\ssnar_cpp\slam-application\src\grid_path_solver.cpp(62): warning C4838: conversion from '_Ty1' to 'T' requires a narrowing conversion
+          with
+          [
+              _Ty1=int
+          ]
+          and
+          [
+              T=size_t
+          ]
+c:\temp\ssnar_cpp\slam-application\src\grid_path_solver.cpp(62): warning C4838: conversion from '_Ty2' to 'T' requires a narrowing conversion
+          with
+          [
+              _Ty2=int
+          ]
+          and
+          [
+              T=size_t
+          ]
+  grid_util.cpp
+  imgui-SFML.cpp
+  lines.cpp
+  MQTT.cpp
+  MQTT_panel.cpp
+c:\temp\ssnar_cpp\slam-application\src\mqtt_panel.cpp(76): warning C4838: conversion from 'int' to 'int16_t' requires a narrowing conversion
+c:\temp\ssnar_cpp\slam-application\src\mqtt_panel.cpp(77): warning C4838: conversion from 'int' to 'int16_t' requires a narrowing conversion
+c:\temp\ssnar_cpp\slam-application\src\mqtt_panel.cpp(82): warning C4838: conversion from 'int' to 'int16_t' requires a narrowing conversion
+c:\temp\ssnar_cpp\slam-application\src\mqtt_panel.cpp(187): warning C4018: '>': signed/unsigned mismatch
+c:\temp\ssnar_cpp\slam-application\src\mqtt_panel.cpp(195): warning C4018: '>': signed/unsigned mismatch
+  MQTT_utility.cpp
+  obstructable_grid.cpp
+  panel.cpp
+  panel_base.cpp
+  path.cpp
+c:\temp\ssnar_cpp\slam-application\src\path.cpp(13): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  robot.cpp
+c:\temp\ssnar_cpp\slam-application\src\robot.cpp(24): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\temp\ssnar_cpp\slam-application\src\robot.cpp(44): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+c:\temp\ssnar_cpp\slam-application\src\robot.cpp(140): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\temp\ssnar_cpp\slam-application\src\robot.cpp(142): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.16.27023\include\utility(172): warning C4244: 'initializing': conversion from 'T' to '_Ty1', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              _Ty1=int
+          ]
+  c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.16.27023\include\xmemory0(879): note: see reference to function template instantiation 'std::pair<int,int>::pair<T&,T&,0>(_Other1,_Other2) noexcept' being compiled
+          with
+          [
+              T=float,
+              _Other1=float &,
+              _Other2=float &
+          ]
+  c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.16.27023\include\xmemory0(881): note: see reference to function template instantiation 'std::pair<int,int>::pair<T&,T&,0>(_Other1,_Other2) noexcept' being compiled
+          with
+          [
+              T=float,
+              _Other1=float &,
+              _Other2=float &
+          ]
+  c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.16.27023\include\vector(900): note: see reference to function template instantiation 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,T&,T&>(_Alloc &,_Objty *const ,T &,T &)' being compiled
+          with
+          [
+              _Alloc=std::allocator<std::pair<int,int>>,
+              _Ty=std::pair<int,int>,
+              T=float,
+              _Objty=std::pair<int,int>
+          ]
+  c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.16.27023\include\vector(902): note: see reference to function template instantiation 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,T&,T&>(_Alloc &,_Objty *const ,T &,T &)' being compiled
+          with
+          [
+              _Alloc=std::allocator<std::pair<int,int>>,
+              _Ty=std::pair<int,int>,
+              T=float,
+              _Objty=std::pair<int,int>
+          ]
+  c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.16.27023\include\vector(916): note: see reference to function template instantiation '_Ty &std::vector<_Ty,std::allocator<_Ty>>::_Emplace_back_with_unused_capacity<T&,T&>(T &,T &)' being compiled
+          with
+          [
+              _Ty=std::pair<int,int>,
+              T=float
+          ]
+  c:\temp\ssnar_cpp\slam-application\src\robot.cpp(167): note: see reference to function template instantiation '_Ty &std::vector<_Ty,std::allocator<_Ty>>::emplace_back<T&,T&>(T &,T &)' being compiled
+          with
+          [
+              _Ty=std::pair<int,int>,
+              T=float
+          ]
+c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.16.27023\include\utility(173): warning C4244: 'initializing': conversion from 'T' to '_Ty2', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              _Ty2=int
+          ]
+  robots.cpp
+c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.16.27023\include\utility(239): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=float
+          ]
+          and
+          [
+              _Ty1=int
+          ]
+  c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.16.27023\include\xmemory0(215): note: see reference to function template instantiation 'std::pair<int,int>::pair<float,float,0>(std::pair<float,float> &&) noexcept' being compiled
+  c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.16.27023\include\xmemory0(217): note: see reference to function template instantiation 'std::pair<int,int>::pair<float,float,0>(std::pair<float,float> &&) noexcept' being compiled
+  c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.16.27023\include\optional(133): note: see reference to function template instantiation 'void std::_Construct_in_place<std::pair<int,int>,_Ty>(std::pair<int,int> &,_Ty &&) noexcept' being compiled
+          with
+          [
+              _Ty=std::pair<float,float>
+          ]
+  c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.16.27023\include\optional(302): note: see reference to function template instantiation '_Ty &std::_Optional_construct_base<_Ty>::_Construct<std::pair<float,float>>(std::pair<float,float> &&)' being compiled
+          with
+          [
+              _Ty=std::pair<int,int>
+          ]
+  c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.16.27023\include\optional(302): note: see reference to function template instantiation '_Ty &std::_Optional_construct_base<_Ty>::_Construct<std::pair<float,float>>(std::pair<float,float> &&)' being compiled
+          with
+          [
+              _Ty=std::pair<int,int>
+          ]
+  c:\temp\ssnar_cpp\slam-application\src\robots.cpp(121): note: see reference to function template instantiation 'std::optional<std::pair<int,int>>::optional<gui::base::fpair,0>(std::optional<gui::base::fpair> &&)' being compiled
+  c:\temp\ssnar_cpp\slam-application\src\robots.cpp(121): note: see reference to function template instantiation 'std::optional<std::pair<int,int>>::optional<gui::base::fpair,0>(std::optional<gui::base::fpair> &&)' being compiled
+  c:\temp\vcpkg\installed\x86-windows\include\boost\bind\placeholders.hpp(54): note: see reference to class template instantiation 'boost::arg<9>' being compiled
+  c:\temp\vcpkg\installed\x86-windows\include\boost\bind\placeholders.hpp(53): note: see reference to class template instantiation 'boost::arg<8>' being compiled
+  c:\temp\vcpkg\installed\x86-windows\include\boost\bind\placeholders.hpp(52): note: see reference to class template instantiation 'boost::arg<7>' being compiled
+  c:\temp\vcpkg\installed\x86-windows\include\boost\bind\placeholders.hpp(51): note: see reference to class template instantiation 'boost::arg<6>' being compiled
+  c:\temp\vcpkg\installed\x86-windows\include\boost\bind\placeholders.hpp(50): note: see reference to class template instantiation 'boost::arg<5>' being compiled
+  c:\temp\vcpkg\installed\x86-windows\include\boost\bind\placeholders.hpp(49): note: see reference to class template instantiation 'boost::arg<4>' being compiled
+  c:\temp\vcpkg\installed\x86-windows\include\boost\bind\placeholders.hpp(48): note: see reference to class template instantiation 'boost::arg<3>' being compiled
+  c:\temp\vcpkg\installed\x86-windows\include\boost\bind\placeholders.hpp(47): note: see reference to class template instantiation 'boost::arg<2>' being compiled
+  c:\temp\vcpkg\installed\x86-windows\include\boost\bind\placeholders.hpp(46): note: see reference to class template instantiation 'boost::arg<1>' being compiled
+c:\program files (x86)\microsoft visual studio\2019\community\vc\tools\msvc\14.16.27023\include\utility(240): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=float
+          ]
+          and
+          [
+              _Ty2=int
+          ]
+  Compiling...
+  robot_simulation.cpp
+c:\temp\ssnar_cpp\slam-application\src\robot_simulation.cpp(33): warning C4838: conversion from 'int' to 'int16_t' requires a narrowing conversion
+c:\temp\ssnar_cpp\slam-application\src\robot_simulation.cpp(34): warning C4838: conversion from 'int' to 'int16_t' requires a narrowing conversion
+  simulation_panel.cpp
+  slam_grid.cpp
+  slam_message.cpp
+  slam_utility.cpp
+c:\temp\ssnar_cpp\slam-application\src\slam_utility.cpp(51): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\temp\ssnar_cpp\slam-application\src\slam_utility.cpp(52): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  target_panel.cpp
+  window.cpp
+  Generating code
+  All 5562 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  SLAM-application.vcxproj -> C:\temp\ssnar_cpp\Release\SLAM-application.exe

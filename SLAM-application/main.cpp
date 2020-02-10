@@ -605,7 +605,7 @@ int main()
 					auto[nx, ny] = next_point.value();
 					NTNU::application::SLAM::message::position pos{ nx, ny };
 					msg.set_payload(pos);
-					//std::cout << "Outbox next point, X: " << pos.x << " Y: " << pos.y << std::endl;		
+					//std::cout << "Outbox next point, X: " << pos.x << " Y: " << pos.y << std::endl;
 					auto result = mqtt_to_publish_ch.push(msg);
 					if (result != boost::fibers::channel_op_status::success) {
 						std::cerr << "Robot push msg onto publish queue did not succeed!\n";

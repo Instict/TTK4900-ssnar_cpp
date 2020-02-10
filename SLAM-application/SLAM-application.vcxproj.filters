@@ -102,10 +102,10 @@
     <ClInclude Include="Include\grid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="target_panel.h">
+    <ClInclude Include="Include\target_panel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="simulation_panel.h">
+    <ClInclude Include="Include\simulation_panel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -185,10 +185,10 @@
     <ClCompile Include="Src\grid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="target_panel.cpp">
+    <ClCompile Include="Src\target_panel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="simulation_panel.cpp">
+    <ClCompile Include="Src\simulation_panel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
